@@ -1,4 +1,3 @@
-set nocompatible
 filetype off
 
 " Setting up Vundle - the vim plugin bundler
@@ -26,6 +25,10 @@ Bundle 'vim-scripts/Zenburn'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'Shougo/unite.vim'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'pbrisbin/vim-rename-file'
+Bundle 'pbrisbin/vim-restore-cursor'
+Bundle 'pbrisbin/alt-ctags'
+Bundle 'pbrisbin/vim-mkdir'
 
 if iCanHazVundle == 0
    echo "Installing Bundles, please ignore key map error messages"
@@ -75,5 +78,36 @@ set mouse=a
 
 
 let g:syntastic_check_on_open = 1
+let g:ctags_command = "ctags -f '%f' -R --exclude='*.js'"
+let g:ctags_excludes = ['~','~/.dotfiles/']
+let g:ctrlp_use_caching = 0
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
+let g:zenburn_alternate_Visual = 1
+let g:zenburn_high_Contrast = 1
+let g:zenburn_old_Visual = 1
+let g:markdown_fenced_languages = ['c','haskell','ruby','sh','yaml','vim']
 
+silent! colorscheme zenburn
 
+let mapleader = ' '
+let maplocalleader = ' '
+
+map <Leader>n :RenameFile<CR>
+
+nnoremap <C-l> :<C-u>nohlsearch<CR><C-l>
+
+cmap w!! w !sudo tee % >/dev/null<CR>
+
+let &colorcolumn = join(range(81,400),',')
+
+highlight ColorColumn ctermbg=235
+
+augroup vimrc
+  autocmd!
+  autocmd BufEnter *.md,*.mkd setlocal filetype=markdown
+  autocmd FileType gitcommit setlocal spell
+  autocmd FileType haskell setlocal shiftwidth=4 | let b:ctags_command = 'hs-ctags %f'
+  autocmd FileType mail setlocal spell nohlsearch
+  autocmd FileType markdown setlocal formatoptions+=twn nosmartindent spell
+  autocmd FileType html setlocal noshowmatch
+augroup END
