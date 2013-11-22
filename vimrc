@@ -29,6 +29,9 @@ Bundle 'pbrisbin/vim-rename-file'
 Bundle 'pbrisbin/vim-restore-cursor'
 Bundle 'pbrisbin/alt-ctags'
 Bundle 'pbrisbin/vim-mkdir'
+Bundle 'a.vim'
+Bundle 'Command-T'
+
 
 if iCanHazVundle == 0
    echo "Installing Bundles, please ignore key map error messages"
