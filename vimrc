@@ -24,14 +24,21 @@ Bundle 'tpope/vim-endwise'
 Bundle 'vim-scripts/Zenburn'
 Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'Shougo/unite.vim'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'pbrisbin/vim-rename-file'
 Bundle 'pbrisbin/vim-restore-cursor'
 Bundle 'pbrisbin/alt-ctags'
 Bundle 'pbrisbin/vim-mkdir'
 Bundle 'a.vim'
 Bundle 'Command-T'
-
+Bundle 'scratch.vim'
+Bundle 'searchfold.vim'
+Bundle 'ScrollColors'
+Bundle 'Colour-Sampler-Pack'
+Bundle 'CCTree'
+Bundle 'clang-complete'
+Bundle 'The-NERD-tree'
+Bundle 'SuperTab'
 
 if iCanHazVundle == 0
    echo "Installing Bundles, please ignore key map error messages"
