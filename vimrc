@@ -86,6 +86,10 @@ set winminheight=5
 set winheight=999
 set mouse=a
 
+" make 81st column stand out
+highlight ColorColumn ctermbg=magenta
+call matchadd('ColorColumn', '\%81v', 100)
+
 
 let g:syntastic_check_on_open = 1
 let g:ctags_command = "ctags -f '%f' -R --exclude='*.js'"
