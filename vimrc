@@ -1,3 +1,7 @@
+" don't bother with vi compatibility
+set nocompatible
+
+filetype on
 filetype off
 
 " Setting up Vundle - the vim plugin bundler
@@ -13,18 +17,24 @@ endif
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 Bundle 'gmarik/vundle'
+Bundle 'airblade/vim-gitgutter'
+Bundle 'juvenn/mustache.vim'
+Bundle 'majutsushi/tagbar'
+Bundle 'msanders/snipmate.vim'
+Bundle 'nathanaelkane/vim-indent-guides'
+Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
 Bundle 'altercation/vim-colors-solarized'
 Bundle 'kien/ctrlp.vim'
+Bundle 'tpope/vim-bundler'
 Bundle 'tpope/vim-commentary'
 Bundle 'tpope/vim-repeat'
 Bundle 'tpope/vim-surround'
 Bundle 'tpope/vim-fugitive'
 Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-ragtag'
 Bundle 'vim-scripts/Zenburn'
-Bundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 Bundle 'Shougo/unite.vim'
-"Bundle 'Valloric/YouCompleteMe'
 Bundle 'pbrisbin/vim-rename-file'
 Bundle 'pbrisbin/vim-restore-cursor'
 Bundle 'pbrisbin/alt-ctags'
@@ -37,8 +47,10 @@ Bundle 'ScrollColors'
 Bundle 'Colour-Sampler-Pack'
 Bundle 'CCTree'
 Bundle 'clang-complete'
-Bundle 'The-NERD-tree'
 Bundle 'SuperTab'
+Bundle 'vim-scripts/Align'
+Bundle 'vim-scripts/greplace.vim'
+Bundle 'vim-scripts/matchit.zip'
 
 if iCanHazVundle == 0
    echo "Installing Bundles, please ignore key map error messages"
@@ -47,44 +59,38 @@ if iCanHazVundle == 0
 endif
 " Setting up Vundle - the vim plugin bundler end
 
-syntax on
 filetype plugin indent on
 
 set autoindent
 set autoread
-set autowrite
-set cursorline
-set directory=/tmp
+set backspace=2
+set backupcopy=yes
+set clipboard=unnamed
+set directory-=.
+set encoding=utf-8
 set expandtab
-set foldmethod=marker
-set formatoptions-=t
-set formatoptions+=j
-set history=500
-set hlsearch
+set ignorecase
 set incsearch
 set laststatus=2
-set list listchars=tab:»·,trail:·
-set nobackup
-set nojoinspaces
-set nowrap
+set list
+set listchars=tab:»·,trail:·
 set number
 set ruler
-set scrolloff=999
+set scrolloff=3
 set shiftwidth=2
 set showcmd
-set showmatch
-set sidescroll=1
-set sidescrolloff=5
-set smartindent
-set smarttab
-set textwidth=72
-set visualbell t_vb=
-set wildmode=list:longest
-set winwidth=84
-set winheight=5
-set winminheight=5
-set winheight=999
+set smartcase
+set softtabstop=2
+set tabstop=8
+set wildignore=log/**,node_modules/**,target/**,/tmp/**,*.rbc
+set wildmenu
+set wildmode=longest,list,full
+
+" Enable basic mouse behavior such as resizing buffers.
 set mouse=a
+if exists('$TMUX') " Support resizing in tmux
+  set ttymouse=xterm2
+endif
 
 " make 81st column stand out
 highlight ColorColumn ctermbg=magenta
@@ -103,14 +109,29 @@ let g:markdown_fenced_languages = ['c','haskell','ruby','sh','yaml','vim']
 
 silent! colorscheme zenburn
 
-let mapleader = ' '
-let maplocalleader = ' '
+" keyboard shortcuts
+let mapleader = ','
+map <C-h> <C-w>h
+map <C-j> <C-w>j
+map <C-k> <C-w>k
+map <C-l> <C-w>l
+map <leader>l :Align
+nmap <leader>b :CtrlPBuffer<CR>
+nmap <leader>d :NERDTreeToggle<CR>
+nmap <leader>f :NERDTreeFind<CR>
+nmap <leader>t :CtrlP<CR>
+nmap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
+nmap <leader>] :TagbarToggle<CR>
+nmap <leader><space> :call whitespace#strip_trailing()<CR>
+nmap <leader>g :GitGutterToggle<CR>
+map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
+
 
 map <Leader>n :RenameFile<CR>
 
 nnoremap <C-l> :<C-u>nohlsearch<CR><C-l>
 
-cmap w!! w !sudo tee % >/dev/null<CR>
+cmap w!! w !sudo tee % >/dev/null %
 
 let &colorcolumn = join(range(81,400),',')
 
