@@ -26,7 +26,6 @@ Bundle 'gmarik/vundle'
 Bundle 'airblade/vim-gitgutter'
 Bundle 'juvenn/mustache.vim'
 Bundle 'majutsushi/tagbar'
-Bundle 'msanders/snipmate.vim'
 Bundle 'nathanaelkane/vim-indent-guides'
 Bundle 'scrooloose/nerdtree'
 Bundle 'scrooloose/syntastic'
@@ -62,7 +61,14 @@ Bundle 'bufexplorer.zip'
 Bundle 'nginx.vim'
 Bundle 'taglist.vim'
 Bundle 'peaksea'
-Bundle 'bling/vim-airline'
+"Bundle 'bling/vim-airline'
+Bundle 'Lokaltog/powerline',{'rtp': 'powerline/bindings/vim'}
+Bundle 'yegappan/mru'
+Bundle 'MarcWeber/vim-addon-mw-utils'
+Bundle 'tomtom/tlib_vim'
+Bundle 'garbas/vim-snipmate'
+Bundle 'honza/vim-snippets'
+
 
 if iCanHazVundle == 0
    echo "Installing Bundles, please ignore key map error messages"
@@ -165,11 +171,24 @@ set foldcolumn=1
 syntax enable
 
 try
-  colorscheme desert
+  colorscheme peaksea
 catch
 endtry
 
+if has("mac") || has("macunix")
+	set gfn=Menlo:h15
+elsif has("win16") || has("win32")
+	set gfn=Bitstream\ Vera\ Sans\ Mono:h11
+elsif has("linux")
+	set gfn=Monospace\ 11
+endif
+
 set background=dark
+
+set guioptions-=r
+set guioptions-=R
+set guioptions-=l
+set guioptions-=L
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -387,6 +406,10 @@ highlight ColorColumn ctermbg=magenta
 call matchadd('ColorColumn', '\%81v', 100)
 let &colorcolumn = join(range(81,400),',')
 highlight ColorColumn ctermbg=235
+
+" quick editing and reloading of vimrc
+map <leader>e :e! ~/.vim/vimrc<cr>
+autocmd! bufwritepost vimrc source ~/.vim/vimrc
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
