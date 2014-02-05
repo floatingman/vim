@@ -57,6 +57,12 @@ Bundle 'SuperTab'
 "Bundle 'vim-scripts/Align'
 Bundle 'vim-scripts/greplace.vim'
 Bundle 'vim-scripts/matchit.zip'
+Bundle 'ack.vim'
+Bundle 'bufexplorer.zip'
+Bundle 'nginx.vim'
+Bundle 'taglist.vim'
+Bundle 'peaksea'
+Bundle 'bling/vim-airline'
 
 if iCanHazVundle == 0
    echo "Installing Bundles, please ignore key map error messages"
