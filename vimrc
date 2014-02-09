@@ -61,8 +61,8 @@ Bundle 'bufexplorer.zip'
 Bundle 'nginx.vim'
 Bundle 'taglist.vim'
 Bundle 'peaksea'
-"Bundle 'bling/vim-airline'
-Bundle 'Lokaltog/powerline',{'rtp': 'powerline/bindings/vim'}
+Bundle 'bling/vim-airline'
+"Bundle 'Lokaltog/powerline',{'rtp': 'powerline/bindings/vim'}
 Bundle 'yegappan/mru'
 Bundle 'MarcWeber/vim-addon-mw-utils'
 Bundle 'tomtom/tlib_vim'
