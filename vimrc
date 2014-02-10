@@ -378,11 +378,6 @@ map <leader>sa zg
 map <leader>s? z=
 
 
-
-
-
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -492,29 +487,12 @@ endfunction
 "map <C-j> <C-w>j
 "map <C-k> <C-w>k
 "map <C-l> <C-w>l
-"map <leader>l :Align
-"nmap <leader>b :CtrlPBuffer<CR>
-"nmap <leader>d :NERDTreeToggle<CR>
-"nmap <leader>f :NERDTreeFind<CR>
-"nmap <leader>t :CtrlP<CR>
-"nmap <leader>T :CtrlPClearCache<CR>:CtrlP<CR>
-"nmap <leader>] :TagbarToggle<CR>
-"nmap <leader><space> :call whitespace#strip_trailing()<CR>
-"nmap <leader>g :GitGutterToggle<CR>
-"map <silent> <leader>V :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo 'vimrc reloaded'"<CR>
 
-"map <Leader>n :RenameFile<CR>
 
 "nnoremap <C-l> :<C-u>nohlsearch<CR><C-l>
 
-"let g:syntastic_check_on_open = 1
 "let g:ctags_command = "ctags -f '%f' -R --exclude='*.js'"
 "let g:ctags_excludes = ['~','~/.dotfiles/']
-"let g:ctrlp_use_caching = 0
-"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files']
-"let g:zenburn_alternate_Visual = 1
-"let g:zenburn_high_Contrast = 1
-"let g:zenburn_old_Visual = 1
 "let g:markdown_fenced_languages = ['c','haskell','ruby','sh','yaml','vim']
 
 

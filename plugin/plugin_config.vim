@@ -48,3 +48,30 @@ let g:syntastic_check_on_open = 1
 let MRU_Max_Entries = 400
 map <leader>f :MRU<CR>
 
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" => GitGutter
+""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader>g :GitGutterToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" => whitespace.vim
+""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader><space> :call whitespace#strip_trailing()<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Tagbar
+""""""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader>] :TagbarToggle<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" => RenameFile
+""""""""""""""""""""""""""""""""""""""""""""""""""
+map <leader>n :RenameFile<CR>
+
+""""""""""""""""""""""""""""""""""""""""""""""""""
+" => RagTag
+""""""""""""""""""""""""""""""""""""""""""""""""""
+inoremap <M-o> <Esc>o
+inoremap <C-j> <Down>
+let g:ragtag_global_maps = 1
+
