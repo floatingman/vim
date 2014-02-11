@@ -89,40 +89,40 @@ NeoBundle 'Shougo/vinarise.vim'
 NeoBundle 'L9'
 NeoBundle 'tpope/vim-repeat'
 
-NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'juvenn/mustache.vim'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'tpope/vim-bundler'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-repeat'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tpope/vim-ragtag'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'pbrisbin/vim-rename-file'
-NeoBundle 'pbrisbin/vim-restore-cursor'
-NeoBundle 'pbrisbin/alt-ctags'
-NeoBundle 'pbrisbin/vim-mkdir'
-NeoBundle 'a.vim'
-NeoBundle 'Command-T'
-NeoBundle 'scratch.vim'
-NeoBundle 'searchfold.vim'
-NeoBundle 'ScrollColors'
+"NeoBundle 'airblade/vim-gitgutter'
+"NeoBundle 'juvenn/mustache.vim'
+"NeoBundle 'scrooloose/nerdtree'
+"NeoBundle 'kien/ctrlp.vim'
+"NeoBundle 'tpope/vim-bundler'
+"NeoBundle 'tpope/vim-commentary'
+"NeoBundle 'tpope/vim-repeat'
+"NeoBundle 'tpope/vim-endwise'
+"NeoBundle 'tpope/vim-ragtag'
+"NeoBundle 'Shougo/unite.vim'
+"NeoBundle 'pbrisbin/vim-rename-file'
+"NeoBundle 'pbrisbin/vim-restore-cursor'
+"NeoBundle 'pbrisbin/alt-ctags'
+"NeoBundle 'pbrisbin/vim-mkdir'
+"NeoBundle 'a.vim'
+"NeoBundle 'Command-T'
+"NeoBundle 'scratch.vim'
+"NeoBundle 'searchfold.vim'
+"NeoBundle 'ScrollColors'
 "NeoBundle 'Colour-Sampler-Pack'
-NeoBundle 'CCTree'
-NeoBundle 'clang-complete'
+"NeoBundle 'CCTree'
+"NeoBundle 'clang-complete'
 "NeoBundle 'SuperTab'
 "NeoBundle 'vim-scripts/Align'
-NeoBundle 'vim-scripts/greplace.vim'
-NeoBundle 'vim-scripts/matchit.zip'
-NeoBundle 'ack.vim'
-NeoBundle 'bufexplorer.zip'
-NeoBundle 'nginx.vim'
-NeoBundle 'taglist.vim'
-NeoBundle 'peaksea'
-NeoBundle 'yegappan/mru'
-NeoBundle 'MarcWeber/vim-addon-mw-utils'
-NeoBundle 'tomtom/tlib_vim'
+"NeoBundle 'vim-scripts/greplace.vim'
+"NeoBundle 'vim-scripts/matchit.zip'
+"NeoBundle 'ack.vim'
+"NeoBundle 'bufexplorer.zip'
+"NeoBundle 'nginx.vim'
+"NeoBundle 'taglist.vim'
+"NeoBundle 'peaksea'
+"NeoBundle 'yegappan/mru'
+"NeoBundle 'MarcWeber/vim-addon-mw-utils'
+"NeoBundle 'tomtom/tlib_vim'
 
 
 if iCanHazNeoBundle == 0
@@ -177,9 +177,9 @@ endif
 
 " Always show current position
 set ruler
-
+ 
 " height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -208,12 +208,18 @@ set magic
 
 " Show matching brackets when text indicator is over them
 set showmatch
+set matchtime=2
+
+set mousehide
+
+
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
+set t_Co=256
 set t_vb=
 set tm=500
 
@@ -227,7 +233,10 @@ set foldcolumn=1
 syntax enable
 
 try
-  colorscheme peaksea
+  colorscheme solarized
+  let g:solarized_termcolors=256
+  let g:solarized_termcolors=0
+  let g:solarized_visibility="low"
 catch
 endtry
 
@@ -351,7 +360,7 @@ autocmd BufReadPost *
      \   exe "normal! g`\"" |
      \ endif
 " Remember info about open buffers on close
-set viminfo^=%
+set viminfo^=% 
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -453,15 +462,19 @@ if exists('$TMUX') " Support resizing in tmux
 endif
 
 " make 81st column stand out
-highlight ColorColumn ctermbg=magenta
-call matchadd('ColorColumn', '\%81v', 100)
-let &colorcolumn = join(range(81,400),',')
-highlight ColorColumn ctermbg=235
+"highlight ColorColumn ctermbg=magenta
+"call matchadd('ColorColumn', '\%81v', 100)
+"let &colorcolumn = join(range(81,400),',')
+"highlight ColorColumn ctermbg=235
+set colorcolumn=128
+set cursorline
+set cursorcolumn
+
 
 " quick editing and reloading of vimrc
 map <leader>e :e! ~/.vim/vimrc<cr>
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
-
+ 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -533,7 +546,7 @@ endfunction
 "set expandtab
 "set list
 "set listchars=tab:»·,trail:·
-"set number
+set number
 "set scrolloff=3
 "set shiftwidth=2
 "set showcmd
