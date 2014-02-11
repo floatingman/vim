@@ -76,6 +76,46 @@ inoremap <C-j> <Down>
 let g:ragtag_global_maps = 1
 
 " ---------------
+" startify
+" ---------------
+let g:startify_session_dir = '~/.vim/sessions'
+let g:startify_show_sessions = 1
+let g:startify_show_files = 1
+let g:startify_show_files_number = 10
+let g:startify_bookmarks = [ '~/.vimrc' ]
+
+" ---------------
+" unite.vim
+" ---------------
+let g:unite_data_directory = '~/.vim/cache/unite'
+let g:unite_enable_start_insert = 1
+let g:unite_source_history_yank_enable = 1
+let g:unite_source_rec_max_cache_files = 1000
+let g:unite_force_overwrite_statusline = 0
+let g:unite_prompt = '» '
+let g:unite_source_grep_command = 'ack'
+let g:unite_source_grep_default_opts = '-H --nocolor --nogroup'
+let g:unite_source_grep_recursive_opt = ''
+nnoremap <C-p> :Unite buffer file_rec/async file_mru<CR>
+nnoremap <C-\> :Unite file<CR>
+nnoremap <C-g> :Unite grep:.<CR>
+
+" ---------------
+" vimshell
+" ---------------
+let g:vimshell_temporary_directory = expand('~/.vim/cache/vimshell')
+let g:vimshell_force_overwrite_statusline = 0
+
+" ---------------
+" vimfiler
+" ---------------
+let g:vimfiler_data_directory = '~/.vim/cache/vimfiler'
+let g:vimfiler_as_default_explorer = 1
+let g:vimfiler_force_overwrite_statusline = 0
+nnoremap <C-n> :VimFilerExplorer<CR>
+
+
+" ---------------
 " airline
 " ---------------
 let g:airline_left_sep = '▶'
@@ -148,3 +188,79 @@ let g:neosnippet#snippets_directory = '~/.vim/bundle/vim-snippets/snippets'
 imap <silent><C-k> <Plug>(neosnippet_expand_or_jump)
 smap <silent><C-k> <Plug>(neosnippet_expand_or_jump)
 
+" ---------------
+" gundo.vim
+" ---------------
+let g:gundo_width = 32
+let g:gundo_preview_height = 16
+
+" ---------------
+" indent-guides
+" ---------------
+let g:indent_guides_auto_colors=1
+let g:indent_guides_enable_on_vim_startup=0
+let g:indent_guides_color_change_percent=5
+let g:indent_guides_guide_size=1
+nmap <silent> <leader>i :IndentGuidesToggle<CR>
+
+" ---------------
+" Tabular
+" ---------------
+nmap <leader>t= :Tabularize /=<CR>
+vmap <leader>t= :Tabularize /=<CR>
+nmap <leader>t: :Tabularize /:\zs<CR>
+vmap <leader>t: :Tabularize /:\zs<CR>
+nmap <leader>t, :Tabularize /,\zs<CR>
+vmap <leader>t, :Tabularize /,\zs<CR>
+nmap <leader>t> :Tabularize /=>\zs<CR>
+vmap <leader>t> :Tabularize /=>\zs<CR>
+
+" ---------------
+" zencoding
+" ---------------
+let g:user_zen_settings = {
+      \  'php' : {
+      \    'extends' : 'html',
+      \    'filters' : 'c',
+      \  },
+      \  'xml' : {
+      \    'extends' : 'html',
+      \  },
+      \  'haml' : {
+      \    'extends' : 'html',
+      \  },
+      \  'eruby' : {
+      \    'extends' : 'html',
+      \  },
+      \}
+
+" ---------------
+" vim-javascript
+" ---------------
+let g:html_indent_inctags = "body,head,tbody"
+let g:html_indent_autotags = "th,td,tr,tfoot,thead"
+let g:html_indent_sciript1 = "inc"
+let g:html_indent_style1 = "inc"
+
+" ---------------
+" slimv
+" mit-scheme
+" ---------------
+let g:slimv_impl = 'mit'
+let g:slimv_disable_clojure = 1
+let g:slimv_disable_lisp = 1
+let g:scheme_builtin_swank = 1
+
+" ---------------
+" vim2hs
+" ---------------
+let g:haskell_hsp = 0
+
+" --------------
+" syntastic
+" --------------
+let g:syntastic_ignore_files = ['^/usr/include/']
+let g:syntastic_c_config_file = '.syntastic_c_config'
+let g:syntastic_c_check_header = 1
+let g:syntastic_c_compiler = 'gcc'
+let g:syntastic_c_compiler_options = '-std=c99 -Wall'
