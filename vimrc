@@ -11,72 +11,128 @@ filetype on
 filetype off
 
 " Setting up Vundle - the vim plugin bundler
-let iCanHazVundle=1
-let vundle_readme=expand('~/.vim/bundle/vundle/README.md')
-if !filereadable(vundle_readme)
-   echo "Installing Vundle.."
+let iCanHazNeoBundle=1
+let neobundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
+if !filereadable(neobundle_readme)
+   echo "Installing NeoBundle.."
    echo ""
    silent !mkdir -p ~/.vim/bundle
-   silent !git clone https://github.com/gmarik/vundle ~/.vim/bundle/vundle
-   let iCanHazVundle=0
+   silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+   let iCanHazNeoBundle=0
 endif
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
-Bundle 'airblade/vim-gitgutter'
-Bundle 'juvenn/mustache.vim'
-Bundle 'majutsushi/tagbar'
-Bundle 'nathanaelkane/vim-indent-guides'
-Bundle 'scrooloose/nerdtree'
-Bundle 'scrooloose/syntastic'
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'kien/ctrlp.vim'
-Bundle 'tpope/vim-bundler'
-Bundle 'tpope/vim-commentary'
-Bundle 'tpope/vim-repeat'
-Bundle 'tpope/vim-surround'
-Bundle 'tpope/vim-fugitive'
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-ragtag'
-Bundle 'vim-scripts/Zenburn'
-Bundle 'Shougo/unite.vim'
-Bundle 'pbrisbin/vim-rename-file'
-Bundle 'pbrisbin/vim-restore-cursor'
-Bundle 'pbrisbin/alt-ctags'
-Bundle 'pbrisbin/vim-mkdir'
-Bundle 'a.vim'
-Bundle 'Command-T'
-Bundle 'scratch.vim'
-Bundle 'searchfold.vim'
-Bundle 'ScrollColors'
-Bundle 'Colour-Sampler-Pack'
-Bundle 'CCTree'
-Bundle 'clang-complete'
-Bundle 'SuperTab'
-"Bundle 'vim-scripts/Align'
-Bundle 'vim-scripts/greplace.vim'
-Bundle 'vim-scripts/matchit.zip'
-Bundle 'ack.vim'
-Bundle 'bufexplorer.zip'
-Bundle 'nginx.vim'
-Bundle 'taglist.vim'
-Bundle 'peaksea'
-Bundle 'bling/vim-airline'
-"Bundle 'Lokaltog/powerline',{'rtp': 'powerline/bindings/vim'}
-Bundle 'yegappan/mru'
-Bundle 'MarcWeber/vim-addon-mw-utils'
-Bundle 'tomtom/tlib_vim'
-Bundle 'garbas/vim-snipmate'
-Bundle 'honza/vim-snippets'
+
+set rtp+=~/.vim/bundle/neobundle.vim/
+call neobundle#rc(expand('~/.vim/bundle/'))
 
 
-if iCanHazVundle == 0
+"Let NeoBundle manage NeoBundle
+NeoBundleFetch 'Shougo/neobundle.vim'
+
+if has("win16") || has("win32")
+	NeoBundle 'Shougo/vimproc', {'build' : {'cygwin' : 'make -f make_cygwin.mak', }, }
+else
+	NeoBundle 'Shougo/vimproc', {'build' : {'unix' : 'make -f make_unix.mak', }, }
+endif
+
+"Navigation
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/vimfiler.vim'
+NeoBundle 'Shougo/vimshell.vim'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'spiiph/vim-space'
+NeoBundle 'Lokaltog/vim-easymotion'
+
+"UI Additions
+NeoBundle 'mutewinter/vim-indent-guides'
+NeoBundle 'godlygeek/csapprox'
+NeoBundle 'Rykka/colorv.vim'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'bling/vim-airline'
+
+" Commands
+NeoBundle 'scrooloose/nerdcommenter'
+NeoBundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'godlygeek/tabular'
+
+" Automatic Helpers
+NeoBundle 'IndexedSearch'
+NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'editorconfig/editorconfig-vim'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'gregsexton/MatchTag'
+NeoBundle 'Shougo/neocomplete.vim'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'mhinz/vim-startify'
+
+" Language Additions
+NeoBundle 'dag/vim2hs'
+NeoBundle 'vecio/lispp.vim'
+NeoBundle 'https://bitbucket.org/kovisoft/slimv', { 'type': 'hg' }
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'tpope/vim-rails'
+NeoBundle 'tpope/vim-haml'
+NeoBundle 'vim-pandoc/vim-pandoc'
+NeoBundle 'pangloss/vim-javascript'
+NeoBundle 'leshill/vim-json'
+NeoBundle 'othree/html5.vim'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'groenewege/vim-less'
+NeoBundle 'avakhov/vim-yaml'
+NeoBundle 'vim-scripts/DrawIt'
+NeoBundle 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git'
+NeoBundle 'Shougo/vinarise.vim'
+" Libraries
+NeoBundle 'L9'
+NeoBundle 'tpope/vim-repeat'
+
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'juvenn/mustache.vim'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'tpope/vim-bundler'
+NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-repeat'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-ragtag'
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'pbrisbin/vim-rename-file'
+NeoBundle 'pbrisbin/vim-restore-cursor'
+NeoBundle 'pbrisbin/alt-ctags'
+NeoBundle 'pbrisbin/vim-mkdir'
+NeoBundle 'a.vim'
+NeoBundle 'Command-T'
+NeoBundle 'scratch.vim'
+NeoBundle 'searchfold.vim'
+NeoBundle 'ScrollColors'
+"NeoBundle 'Colour-Sampler-Pack'
+NeoBundle 'CCTree'
+NeoBundle 'clang-complete'
+"NeoBundle 'SuperTab'
+"NeoBundle 'vim-scripts/Align'
+NeoBundle 'vim-scripts/greplace.vim'
+NeoBundle 'vim-scripts/matchit.zip'
+NeoBundle 'ack.vim'
+NeoBundle 'bufexplorer.zip'
+NeoBundle 'nginx.vim'
+NeoBundle 'taglist.vim'
+NeoBundle 'peaksea'
+NeoBundle 'yegappan/mru'
+NeoBundle 'MarcWeber/vim-addon-mw-utils'
+NeoBundle 'tomtom/tlib_vim'
+
+
+if iCanHazNeoBundle == 0
    echo "Installing Bundles, please ignore key map error messages"
    echo ""
-   :BundleInstall
+   :NeoBundleInstall
 endif
-" Setting up Vundle - the vim plugin bundler end
+" Setting up NeoBundle - the vim plugin bundler end
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+NeoBundleCheck
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>General
@@ -100,7 +156,7 @@ nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+"command W w !sudo tee % > /dev/null
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
