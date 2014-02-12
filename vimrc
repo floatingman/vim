@@ -235,7 +235,7 @@ syntax enable
 try
   colorscheme solarized
   let g:solarized_termcolors=256
-  let g:solarized_termcolors=0
+  let g:solarized_termtrans=0
   let g:solarized_visibility="low"
 catch
 endtry
