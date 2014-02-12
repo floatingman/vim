@@ -43,7 +43,7 @@ NeoBundle 'spiiph/vim-space'
 NeoBundle 'Lokaltog/vim-easymotion'
 
 "UI Additions
-NeoBundle 'mutewinter/vim-indent-guides'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'godlygeek/csapprox'
 NeoBundle 'Rykka/colorv.vim'
 NeoBundle 'altercation/vim-colors-solarized'
