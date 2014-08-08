@@ -90,41 +90,6 @@ NeoBundle 'Shougo/vinarise.vim'
 NeoBundle 'L9'
 NeoBundle 'tpope/vim-repeat'
 
-"NeoBundle 'airblade/vim-gitgutter'
-"NeoBundle 'juvenn/mustache.vim'
-"NeoBundle 'scrooloose/nerdtree'
-"NeoBundle 'kien/ctrlp.vim'
-"NeoBundle 'tpope/vim-commentary'
-"NeoBundle 'tpope/vim-repeat'
-"NeoBundle 'tpope/vim-endwise'
-"NeoBundle 'tpope/vim-ragtag'
-"NeoBundle 'Shougo/unite.vim'
-"NeoBundle 'pbrisbin/vim-rename-file'
-"NeoBundle 'pbrisbin/vim-restore-cursor'
-"NeoBundle 'pbrisbin/alt-ctags'
-"NeoBundle 'pbrisbin/vim-mkdir'
-"NeoBundle 'a.vim'
-"NeoBundle 'Command-T'
-"NeoBundle 'scratch.vim'
-"NeoBundle 'searchfold.vim'
-"NeoBundle 'ScrollColors'
-"NeoBundle 'Colour-Sampler-Pack'
-"NeoBundle 'CCTree'
-"NeoBundle 'clang-complete'
-"NeoBundle 'SuperTab'
-"NeoBundle 'vim-scripts/Align'
-"NeoBundle 'vim-scripts/greplace.vim'
-"NeoBundle 'vim-scripts/matchit.zip'
-"NeoBundle 'ack.vim'
-"NeoBundle 'bufexplorer.zip'
-"NeoBundle 'nginx.vim'
-"NeoBundle 'taglist.vim'
-"NeoBundle 'peaksea'
-"NeoBundle 'yegappan/mru'
-"NeoBundle 'MarcWeber/vim-addon-mw-utils'
-"NeoBundle 'tomtom/tlib_vim'
-
-
 if iCanHazNeoBundle == 0
    echo "Installing Bundles, please ignore key map error messages"
    echo ""
@@ -156,7 +121,7 @@ nmap <leader>w :w!<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+"command W w !sudo tee % > /dev/null
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -286,13 +251,13 @@ set noswapfile
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
-set tw=500
+set tw=72
 
 set ai "Auto indent
 set si "Smart indent
@@ -536,41 +501,72 @@ function! <SID>BufcloseCloseIt()
    endif
 endfunction
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Old stuff
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Configs from various sources possibly to get rid of
-"set clipboard=unnamed
-"set directory-=.
-"set wildmode=longest,list,full
-"set expandtab
-"set list
-"set listchars=tab:»·,trail:·
 set number
-"set scrolloff=3
-"set shiftwidth=2
-"set showcmd
 
-" keyboard shortcuts
-"map <C-h> <C-w>h
-"map <C-j> <C-w>j
-"map <C-k> <C-w>k
-"map <C-l> <C-w>l
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+" Neocomplete settings
+"""""""""""""""""""""""""""""""""""""""""""""""""""
 
+" Disable AutoComplPop
+let g:acp_enableAtStartup = 0
 
-"nnoremap <C-l> :<C-u>nohlsearch<CR><C-l>
+" Use neocomplete
+let g:neocomplete#enable_at_startup = 1
 
-"let g:ctags_command = "ctags -f '%f' -R --exclude='*.js'"
-"let g:ctags_excludes = ['~','~/.dotfiles/']
-"let g:markdown_fenced_languages = ['c','haskell','ruby','sh','yaml','vim']
+" Use smartcase
+let g:neocomplete#enable_smart_case = 1
 
+" Set minimum syntax keywork length
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
-"augroup vimrc
-" autocmd!
-" autocmd BufEnter *.md,*.mkd setlocal filetype=markdown
-" autocmd FileType gitcommit setlocal spell
-" autocmd FileType haskell setlocal shiftwidth=4 | let b:ctags_command = 'hs-ctags %f'
-" autocmd FileType mail setlocal spell nohlsearch
-" autocmd FileType markdown setlocal formatoptions+=twn nosmartindent spell
-" autocmd FileType html setlocal noshowmatch
-"augroup END
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
+	\ 'default' : '',
+	\ 'vimshell' : $HOME.'/.vimshell_hist',
+	\ 'schome' : $HOME.'/.gosh_completions'
+	\}
+
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+	let g:neocomplete#keyword_patterns = {}
+endif
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+
+inoremap <expr><C-g> neocomplete#undo_completion()
+inoremap <expr><C-l> neocomplete#complete_common_string()
+
+" Recommended key-mappings
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+	return neocomplete#close_popup() . "\<CR>"
+	" For no inserting <CR> key.
+	" return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backward char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y> neocomplete#close_popup()
+inoremap <expr><C-e> neocomplete#cancel_popup()
+
+" Enable omni completion.
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
+endif
+"let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
+"let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
+
+" For perlomni.vim setting.
+" https://github.com/c9s/perlomni.vim
+let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
