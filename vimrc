@@ -41,6 +41,8 @@ NeoBundle 'Shougo/vimshell.vim'
 NeoBundle 'sjl/gundo.vim'
 NeoBundle 'spiiph/vim-space'
 NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'scrooloose/nerdtree'
+
 
 "UI Additions
 NeoBundle 'nathanaelkane/vim-indent-guides'
@@ -440,6 +442,9 @@ set cursorcolumn
 map <leader>e :e! ~/.vim/vimrc<cr>
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
  
+" indent the whole file and return to original position
+:nmap <leader>= mzgg=G\`z
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -570,3 +575,14 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+" Text bubbling (http://vimcasts.org/episodes/bubbling-text/)
+nmap <C-Up> [e
+nmap <C-Down> ]e
+vmap <C-Up> [egv
+vmap <C-Down> ]egv
+
+" NERDTree
+nmap <Leader>d :NERDTreeToggle<CR>
+let NERDTreeDirArrows=1
+let NERDTreeDelims=1
