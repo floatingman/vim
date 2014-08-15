@@ -433,7 +433,7 @@ endif
 "call matchadd('ColorColumn', '\%81v', 100)
 "let &colorcolumn = join(range(81,400),',')
 "highlight ColorColumn ctermbg=235
-set colorcolumn=128
+set colorcolumn=81
 set cursorline
 set cursorcolumn
 
@@ -482,7 +482,7 @@ function! HasPaste()
     if &paste
         return 'PASTE MODE  '
     en
-    return ''
+    return ''(neocomplete_start_auto_complete)8
 endfunction
 
 " Don't close window, when deleting a buffer
@@ -586,3 +586,7 @@ vmap <C-Down> ]egv
 nmap <Leader>d :NERDTreeToggle<CR>
 let NERDTreeDirArrows=1
 let NERDTreeDelims=1
+
+" Set window size
+nmap <leader>1 :set lines=40 columns=85<CR><C-w>o
+nmap <leader>2 :set lines=50 columns=171<CR><C-w>v
