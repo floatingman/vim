@@ -37,27 +37,16 @@ set scrolloff=3
 " Lower the time that Vim waits to look for matching keymaps (ms)
 set timeoutlen=400
 
+" Set 3 lines to the cursor - when moving vertically using j/k
+set scrolloff=3
+
+" Lower the time that Vim waits to look for matching keymaps (ms)
+set timeoutlen=400
+
 " Easy movement between buffers
 let g:buftabs_only_basename=1
 noremap <C-p> :bprev<CR>
 noremap <C-n> :bnext<CR>
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc,*.elc,log/**,node_modules/**,target/**,/tmp/**,*.rbc
-if has("win16") || has("win32")
-	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-else
-	set wildignore+=.git\*,.hg\*,.svn\*
-endif
-
-" Always show current position
-set ruler
-
-" height of the command bar
-set cmdheight=1
-
-" A buffer becomes hidden when it is abandoned
-set hid
 
 " Configure backspace to work as it should
 set backspace=start,eol
@@ -271,8 +260,28 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
-
+let &stl=""
+if exists('*StatuslineColor')
+	let &stl.="%{StatuslineColor()}"
+else
+	hi StatusLine ctermfg=237 ctermbg=250
+	hi User1 ctermfg=015 ctermbg=237
+	hi User2 ctermfg=232 ctermbg=237
+	hi User3 ctermfg=184 ctermbg=237
+	hi User4 ctermfg=184 ctermbg=237
+	hi User5 ctermfg=184 ctermbg=237
+endif
+let &stl.="%1*%f"												" filename
+let &stl.="%="													" everything after this is right-aligned
+let &stl.="%3*%{&modified?'[+]\ ':''}"	" modified flag
+let &stl.="%4*%{&readonly?'[R]\ ':''}"	" read-only flag
+let &stl.="%5*%{&paste?'[P]\ ':''}"			" paste mode
+let &stl.="%<"													" truncate here if we run out of space
+let &stl.="%2*\|\ %1*\%{&ff}\ %2*\|"		" file format
+let &stl.="%1*\ %{strlen(&fenc)?&fenc:'none'}\ %2*\|" " file encoding
+let &stl.="%1*\ %{tolower(&ft)}\ %2*\|"	" filetype, lowercase without surrounding square brackets
+let &stl.="%1*\ %l,%c\ %2*\|"						" line, col position
+let &stl.="%1*\ %p%%"										" total lines, % of file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -340,14 +349,30 @@ if exists('$TMUX') " Support resizing in tmux
 	set ttymouse=xterm2
 endif
 
-" make 81st column stand out
-"highlight ColorColumn ctermbg=magenta
-"call matchadd('ColorColumn', '\%81v', 100)
-"let &colorcolumn = join(range(81,400),',')
-"highlight ColorColumn ctermbg=235
-set colorcolumn=81
-set cursorline
-set cursorcolumn
+let &colorcolumn="80,".join(range(120,999), ",")
+
+" Highlight trailing whitespace
+if hlexists("TrailingWhitespace")
+	match TrailingWhitespace /\s\+$/
+endif
+
+" Visually indicate when I'm over 80-cols on line length, at add the ability
+" to turn it on/off. Show text with a dark-red background, but show regular
+" syntax highlighting.
+if hlexists("OverLength")
+	map <leader>k :call ToggleOverLength()<CR>
+	function! ToggleOverLength()
+		if exists('w:m1')
+			call matchdelete(w:m1)
+			unlet w:m1
+		else
+			let w:m1=matchadd('OverLength', '\%81v.\+', 11)
+		endif
+	endfunction
+	"call ToggleOverLength()
+else
+	map <leader>k :echo "No 'OverLength' highlight group in color settings."<CR>
+endif
 
 
 " quick editing and reloading of vimrc
@@ -365,7 +390,7 @@ function! CmdLine(str)
 	exe "menu Foo.Bar :" . a:str
 	emenu Foo.Bar
 	unmenu Foo
-endfunction 
+endfunction
 
 function! VisualSelection(direction, extra_filter) range
 	let l:saved_reg = @"
@@ -603,3 +628,18 @@ vnoremap " "zdi"<C-R>z"<ESC>
 
 " Activate pathogen
 execute pathogen#infect()
+
+" Ctrl-P Plugin
+let g:ctrlp_map = '<leader>o'
+
+let g:ctrlp_match_window_bottom = 0
+let g:ctrlp_match_window_reversed = 0
+
+let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
+let g:ctrlp_working_path_mode = 0
+
+let g:ctrlp_dotfiles = 0
+let g:ctrlp_switch_buffer = 0
+
+" Search by tag - massively useful
+map <leader>. :CtrlPTag<CR>
