@@ -11,95 +11,95 @@ filetype on
 filetype off
 
 " Setting up Vundle - the vim plugin bundler
-let iCanHazNeoBundle=1
-let neobundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
-if !filereadable(neobundle_readme)
-   echo "Installing NeoBundle.."
-   echo ""
-   silent !mkdir -p ~/.vim/bundle
-   silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
-   let iCanHazNeoBundle=0
-endif
+"let iCanHazNeoBundle=1
+"let neobundle_readme=expand('~/.vim/bundle/neobundle.vim/README.md')
+"if !filereadable(neobundle_readme)
+"	echo "Installing NeoBundle.."
+"	echo ""
+"	silent !mkdir -p ~/.vim/bundle
+"	silent !git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
+"	let iCanHazNeoBundle=0
+"endif
 
-set rtp+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle/'))
+"set rtp+=~/.vim/bundle/neobundle.vim/
+"call neobundle#rc(expand('~/.vim/bundle/'))
 
 
 "Let NeoBundle manage NeoBundle
-NeoBundleFetch 'Shougo/neobundle.vim'
+"NeoBundleFetch 'Shougo/neobundle.vim'
 
-if has("win16") || has("win32")
-	NeoBundle 'Shougo/vimproc', {'build' : {'cygwin' : 'make -f make_cygwin.mak', }, }
-else
-	NeoBundle 'Shougo/vimproc', {'build' : {'unix' : 'make -f make_unix.mak', }, }
-endif
+"if has("win16") || has("win32")
+""	NeoBundle 'Shougo/vimproc', {'build' : {'cygwin' : 'make -f make_cygwin.mak', }, }
+"else
+""	NeoBundle 'Shougo/vimproc', {'build' : {'unix' : 'make -f make_unix.mak', }, }
+"endif
 
 "Navigation
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/vimfiler.vim'
-NeoBundle 'Shougo/vimshell.vim'
-NeoBundle 'sjl/gundo.vim'
-NeoBundle 'spiiph/vim-space'
-NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'scrooloose/nerdtree'
+"NeoBundle 'Shougo/unite.vim'
+"NeoBundle 'Shougo/vimfiler.vim'
+"NeoBundle 'Shougo/vimshell.vim'
+"NeoBundle 'sjl/gundo.vim'
+"NeoBundle 'spiiph/vim-space'
+"NeoBundle 'Lokaltog/vim-easymotion'
+"NeoBundle 'scrooloose/nerdtree'
 
 
 "UI Additions
-NeoBundle 'nathanaelkane/vim-indent-guides'
-NeoBundle 'godlygeek/csapprox'
-NeoBundle 'Rykka/colorv.vim'
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'bling/vim-airline'
+"NeoBundle 'nathanaelkane/vim-indent-guides'
+"NeoBundle 'godlygeek/csapprox'
+"NeoBundle 'Rykka/colorv.vim'
+"NeoBundle 'altercation/vim-colors-solarized'
+"NeoBundle 'bling/vim-airline'
 
 " Commands
-NeoBundle 'scrooloose/nerdcommenter'
-NeoBundle 'tpope/vim-surround'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'godlygeek/tabular'
+"NeoBundle 'scrooloose/nerdcommenter'
+"NeoBundle 'tpope/vim-surround'
+"NeoBundle 'tpope/vim-fugitive'
+"NeoBundle 'godlygeek/tabular'
 
 " Automatic Helpers
-NeoBundle 'IndexedSearch'
-NeoBundle 'Raimondi/delimitMate'
-NeoBundle 'editorconfig/editorconfig-vim'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'gregsexton/MatchTag'
-NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/neosnippet-snippets'
-NeoBundle 'honza/vim-snippets'
-NeoBundle 'majutsushi/tagbar'
-NeoBundle 'mattn/emmet-vim'
-NeoBundle 'mhinz/vim-startify'
+"NeoBundle 'IndexedSearch'
+"NeoBundle 'Raimondi/delimitMate'
+"NeoBundle 'editorconfig/editorconfig-vim'
+"NeoBundle 'scrooloose/syntastic'
+"NeoBundle 'gregsexton/MatchTag'
+"NeoBundle 'Shougo/neocomplete.vim'
+"NeoBundle 'Shougo/neosnippet'
+"NeoBundle 'Shougo/neosnippet-snippets'
+"NeoBundle 'honza/vim-snippets'
+"NeoBundle 'majutsushi/tagbar'
+"NeoBundle 'mattn/emmet-vim'
+"NeoBundle 'mhinz/vim-startify'
 
 " Language Additions
-NeoBundle 'dag/vim2hs'
-NeoBundle 'vecio/lispp.vim'
-NeoBundle 'https://bitbucket.org/kovisoft/slimv', { 'type': 'hg' }
-NeoBundle 'vim-ruby/vim-ruby'
-NeoBundle 'tpope/vim-rails'
-NeoBundle 'tpope/vim-haml'
-NeoBundle 'vim-pandoc/vim-pandoc'
-NeoBundle 'pangloss/vim-javascript'
-NeoBundle 'leshill/vim-json'
-NeoBundle 'othree/html5.vim'
-NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'groenewege/vim-less'
-NeoBundle 'avakhov/vim-yaml'
-NeoBundle 'vim-scripts/DrawIt'
-NeoBundle 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git'
-NeoBundle 'Shougo/vinarise.vim'
+"NeoBundle 'dag/vim2hs'
+"NeoBundle 'vecio/lispp.vim'
+"NeoBundle 'https://bitbucket.org/kovisoft/slimv', { 'type': 'hg' }
+"NeoBundle 'vim-ruby/vim-ruby'
+"NeoBundle 'tpope/vim-rails'
+"NeoBundle 'tpope/vim-haml'
+"NeoBundle 'vim-pandoc/vim-pandoc'
+"NeoBundle 'pangloss/vim-javascript'
+"NeoBundle 'leshill/vim-json'
+"NeoBundle 'othree/html5.vim'
+"NeoBundle 'kchmck/vim-coffee-script'
+"NeoBundle 'groenewege/vim-less'
+"NeoBundle 'avakhov/vim-yaml'
+"NeoBundle 'vim-scripts/DrawIt'
+"NeoBundle 'git://fedorapeople.org/home/fedora/wwoods/public_git/vim-scripts.git'
+"NeoBundle 'Shougo/vinarise.vim'
 " Libraries
-NeoBundle 'L9'
-NeoBundle 'tpope/vim-repeat'
+"NeoBundle 'L9'
+"NeoBundle 'tpope/vim-repeat'
 
-if iCanHazNeoBundle == 0
-   echo "Installing Bundles, please ignore key map error messages"
-   echo ""
-   :NeoBundleInstall
-endif
+"if iCanHazNeoBundle == 0
+"	echo "Installing Bundles, please ignore key map error messages"
+"	echo ""
+"	:NeoBundleInstall
+"endif
 " Setting up NeoBundle - the vim plugin bundler end
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-NeoBundleCheck
+"NeoBundleCheck
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>General
@@ -131,20 +131,17 @@ command W w !sudo tee % > /dev/null
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
-" Turn on the WiLd menu
-set wildmenu
-
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc,*.elc,log/**,node_modules/**,target/**,/tmp/**,*.rbc
 if has("win16") || has("win32")
-  set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+	set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 else
-  set wildignore+=.git\*,.hg\*,.svn\*
+	set wildignore+=.git\*,.hg\*,.svn\*
 endif
 
 " Always show current position
 set ruler
- 
+
 " height of the command bar
 set cmdheight=1
 
@@ -167,6 +164,9 @@ set hlsearch
 " Makes search act like search in modern browsers
 set incsearch
 
+" Turn off highlights
+nmap <leader>q :nohlsearch<CR>
+
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
 
@@ -179,19 +179,28 @@ set matchtime=2
 
 set mousehide
 
-
 " How many tenths of a second to blink when matching brackets
 set mat=2
 
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
-set t_Co=256
 set t_vb=
 set tm=500
 
-" add a bit extra margin to the left
-set foldcolumn=1
+" Folding
+set foldmethod=indent
+
+"Don't fold anything by default - I'll close the folds myself
+set foldlevel=99
+
+" Don't bother folding small blocks
+set foldminlines=5
+
+" Fold column
+set foldcolumn=0
+
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -199,23 +208,39 @@ set foldcolumn=1
 " Enable syntax highlighting
 syntax enable
 
-try
-  colorscheme solarized
-  let g:solarized_termcolors=256
-  let g:solarized_termtrans=0
-  let g:solarized_visibility="low"
-catch
-endtry
+
+"set colorscheme based on $VIMCOLOR or use dusk by default
+if $VIMCOLOR == 'light'
+	set background=light
+	let g:solarized_termcolors=256
+	color solarized
+elseif $VIMCOLOR == 'dark'
+	set background=dark
+	let g:solarized_termcolors=256
+	color solarized
+elseif $VIMCOLOR == 'molokai'
+	let g:molokai_original=1
+	let g:rehash256=1
+	color molokai
+elseif $VIMCOLOR != ''
+	color $VIMCOLOR
+else
+	color dusk
+endif
+
+
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+	set t_Co=256
+endif
 
 if has("mac") || has("macunix")
 	set gfn=Menlo:h15
 elsif has("win16") || has("win32")
-	set gfn=Bitstream\ Vera\ Sans\ Mono:h11
+set gfn=Bitstream\ Vera\ Sans\ Mono:h11
 elsif has("linux")
-	set gfn=Monospace\ 11
+set gfn=Monospace\ 11
 endif
 
-set background=dark
 
 set guioptions-=r
 set guioptions-=R
@@ -224,10 +249,9 @@ set guioptions-=L
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-  set guioptions-=T
-  set guioptions-=e
-  set t_Co=256
-  set guitablabel=%M\ %t
+	set guioptions-=T
+	set guioptions-=e
+	set guitablabel=%M\ %t
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -253,13 +277,26 @@ set noswapfile
 " Be smart when using tabs ;)
 set smarttab
 
+set autoindent
+set smartindent
+
+" Linewidth to endless
+set textwidth=0
+
+" Do not wrap lines automatically
+set nowrap
+
+" Don't show linenumbers by default
+set nonumber
+
 " 1 tab == 2 spaces
 set shiftwidth=2
 set tabstop=2
+set softtabstop=2
 
 " Linebreak on 500 characters
-set lbr
-set tw=72
+"set lbr
+"set tw=72
 
 set ai "Auto indent
 set si "Smart indent
@@ -316,16 +353,16 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Specify the behavior when switching between buffers 
 try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
+	set switchbuf=useopen,usetab,newtab
+	set stal=2
 catch
 endtry
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
-     \ if line("'\"") > 0 && line("'\"") <= line("$") |
-     \   exe "normal! g`\"" |
-     \ endif
+			\ if line("'\"") > 0 && line("'\"") <= line("$") |
+			\   exe "normal! g`\"" |
+			\ endif
 " Remember info about open buffers on close
 set viminfo^=% 
 
@@ -336,7 +373,7 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
+set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
@@ -351,17 +388,17 @@ vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
-  nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-  vmap <D-k> <M-k>
+	nmap <D-j> <M-j>
+	nmap <D-k> <M-k>
+	vmap <D-j> <M-j>
+	vmap <D-k> <M-k>
 endif
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
+	exe "normal mz"
+	%s/\s\+$//ge
+	exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
@@ -370,16 +407,16 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 " => vimgrep searching and cope displaying
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " When you press gv you vimgrep after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
+" vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " Open vimgrep and put the cursor in the right position
-map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+" map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
 
 " Vimgreps in the current file
-map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
+" map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
 
 " When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+" vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 " Do :help cope if you are unsure what cope is. It's super useful!
 "
@@ -392,10 +429,21 @@ vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 " To go to the previous search results do:
 "   <leader>p
 "
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
+" map <leader>cc :botright cope<cr>
+" map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+" map <leader>n :cn<cr>
+" map <leader>p :cp<cr>
+
+" Show vimgrep matches in the quickfix window
+command! -nargs=+ Grep execute 'silent grep! -r <args>' | copen 33
+" Search for the word under the cursor within the current file and display
+" results in the quickfix
+map <leader>g :execute "vimgrep /" . expand("<cword>") . "/j %" <Bar> cw<CR>
+" Same as above, but do it recursively for all files under the CWD.
+map <leader>gr :execute "vimgrep /" . expand("<cword") . "/j **" <Bar> cw<CR>
+" Same as above, but use Ack.
+map <leader>ga :execute "Ack " . expand("<cword>")<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -416,16 +464,13 @@ map <leader>s? z=
 " Remove the Windows ^M - when the encodings gets messed up
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-" Quickly open a buffer for scripbble
-map <leader>q :e ~/buffer<cr>
-
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+map <leader>p :setlocal paste!<cr>
 
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
 if exists('$TMUX') " Support resizing in tmux
-  set ttymouse=xterm2
+	set ttymouse=xterm2
 endif
 
 " make 81st column stand out
@@ -441,7 +486,7 @@ set cursorcolumn
 " quick editing and reloading of vimrc
 map <leader>e :e! ~/.vim/vimrc<cr>
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
- 
+
 " indent the whole file and return to original position
 :nmap <leader>= mzgg=G\`z
 
@@ -450,131 +495,120 @@ autocmd! bufwritepost vimrc source ~/.vim/vimrc
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
+	exe "menu Foo.Bar :" . a:str
+	emenu Foo.Bar
+	unmenu Foo
 endfunction 
 
 function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
+	let l:saved_reg = @"
+	execute "normal! vgvy"
 
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+	let l:pattern = escape(@", '\\/.*$^~[]')
+	let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-    if a:direction == 'b'
-        execute "normal ?" . l:pattern . "^M"
-    elseif a:direction == 'gv'
-        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    elseif a:direction == 'f'
-        execute "normal /" . l:pattern . "^M"
-    endif
+	if a:direction == 'b'
+		execute "normal ?" . l:pattern . "^M"
+	elseif a:direction == 'gv'
+		call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
+	elseif a:direction == 'replace'
+		call CmdLine("%s" . '/'. l:pattern . '/')
+	elseif a:direction == 'f'
+		execute "normal /" . l:pattern . "^M"
+	endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
-endfunction
-
-
-" Returns true if paste mode is enabled
-function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    en
-    return ''(neocomplete_start_auto_complete)8
+	let @/ = l:pattern
+	let @" = l:saved_reg
 endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
+	let l:currentBufNum = bufnr("%")
+	let l:alternateBufNum = bufnr("#")
 
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
+	if buflisted(l:alternateBufNum)
+		buffer #
+	else
+		bnext
+	endif
 
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
+	if bufnr("%") == l:currentBufNum
+		new
+	endif
 
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
+	if buflisted(l:currentBufNum)
+		execute("bdelete! ".l:currentBufNum)
+	endif
 endfunction
-
-set number
 
 """""""""""""""""""""""""""""""""""""""""""""""""""
 " Neocomplete settings
 """""""""""""""""""""""""""""""""""""""""""""""""""
 
 " Disable AutoComplPop
-let g:acp_enableAtStartup = 0
+"let g:acp_enableAtStartup = 0
 
 " Use neocomplete
-let g:neocomplete#enable_at_startup = 1
+"let g:neocomplete#enable_at_startup = 1
 
 " Use smartcase
-let g:neocomplete#enable_smart_case = 1
+"let g:neocomplete#enable_smart_case = 1
 
 " Set minimum syntax keywork length
-let g:neocomplete#sources#syntax#min_keyword_length = 3
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+"let g:neocomplete#sources#syntax#min_keyword_length = 3
+"let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 " Define dictionary.
-let g:neocomplete#sources#dictionary#dictionaries = {
-	\ 'default' : '',
-	\ 'vimshell' : $HOME.'/.vimshell_hist',
-	\ 'schome' : $HOME.'/.gosh_completions'
-	\}
+"let g:neocomplete#sources#dictionary#dictionaries = {
+""			\ 'default' : '',
+""			\ 'vimshell' : $HOME.'/.vimshell_hist',
+""			\ 'schome' : $HOME.'/.gosh_completions'
+""			\}
 
 " Define keyword.
-if !exists('g:neocomplete#keyword_patterns')
-	let g:neocomplete#keyword_patterns = {}
-endif
-let g:neocomplete#keyword_patterns['default'] = '\h\w*'
+"if !exists('g:neocomplete#keyword_patterns')
+""	let g:neocomplete#keyword_patterns = {}
+"endif
+"let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-inoremap <expr><C-g> neocomplete#undo_completion()
-inoremap <expr><C-l> neocomplete#complete_common_string()
+"inoremap <expr><C-g> neocomplete#undo_completion()
+"inoremap <expr><C-l> neocomplete#complete_common_string()
 
 " Recommended key-mappings
 " <CR>: close popup and save indent.
-inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
-function! s:my_cr_function()
-	return neocomplete#close_popup() . "\<CR>"
+"inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+"function! s:my_cr_function()
+"	return neocomplete#close_popup() . "\<CR>"
 	" For no inserting <CR> key.
 	" return pumvisible() ? neocomplete#close_popup() : "\<CR>"
-endfunction
+"endfunction
 " <TAB>: completion.
-inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+"inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
 " <C-h>, <BS>: close popup and delete backward char.
-inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
-inoremap <expr><C-y> neocomplete#close_popup()
-inoremap <expr><C-e> neocomplete#cancel_popup()
+"inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+"inoremap <expr><C-y> neocomplete#close_popup()
+"inoremap <expr><C-e> neocomplete#cancel_popup()
 
 " Enable omni completion.
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+"autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+"autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+"autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " Enable heavy omni completion.
-if !exists('g:neocomplete#sources#omni#input_patterns')
-  let g:neocomplete#sources#omni#input_patterns = {}
-endif
+"if !exists('g:neocomplete#sources#omni#input_patterns')
+""	let g:neocomplete#sources#omni#input_patterns = {}
+"endif
 "let g:neocomplete#sources#omni#input_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 "let g:neocomplete#sources#omni#input_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
 "let g:neocomplete#sources#omni#input_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
 
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
-let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+"let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
 " Text bubbling (http://vimcasts.org/episodes/bubbling-text/)
 nmap <C-Up> [e
@@ -590,3 +624,54 @@ let NERDTreeDelims=1
 " Set window size
 nmap <leader>1 :set lines=40 columns=85<CR><C-w>o
 nmap <leader>2 :set lines=50 columns=171<CR><C-w>v
+
+" Per-file options
+autocmd BufNewFile,BufRead *.py 	setlocal sw=4 ts=4 sts=4 et
+autocmd BufNewFile,BufRead *.md 	setlocal noet tw=74 list
+autocmd BufNewFile,BufRead *.wiki setlocal noet tw=74
+autocmd BufNewFile,BufRead *.rst 	setlocal sw=4 ts=4 sts=4 tw=74 et
+
+" Cheap/simple spreadsheets in Vim
+autocmd BufNewFile,BufRead *.tsv 	setlocal ts=16 sts=16 noet number list
+
+" Columnar movements
+autocmd BufNewFile,BufRead *.tsv 	map L f 	W
+autocmd BufNewFile,BufRead *.tsv 	map H F 	B
+
+"Show tabs and line numbers when coding
+autocmd BufNewFile,BufRead *.py 		setlocal list number
+autocmd BufNewFile,BufRead *.php 		setlocal list number
+autocmd BufNewFile,BufRead *.js 		setlocal list number
+autocmd BufNewFile,BufRead *.go 		setlocal list number
+autocmd BufNewFile,BufRead *.c 			setlocal list number
+autocmd BufNewFile,BufRead *.cpp 		setlocal list number
+autocmd BufNewFile,BufRead *.lua		setlocal list number
+autocmd BufNewFile,BufRead *.html		setlocal list number
+autocmd BufNewFile,BufRead *.coffee	setlocal list number
+
+" Linters
+autocmd BufNewFile,BufRead *.php map <leader>; :!php -l %<CR>
+autocmd BufNewFile,BufRead *.js  map <leader>; :!jshint %<CR>
+autocmd BufNewFile,BufRead *.py  map <leader>; :!pylint -r n -f colorized %<CR>
+
+" Redraw
+noremap <leader>r :redraw!<CR>
+
+" Toggle visible tab characters
+noremap <leader>l :set list!<CR>
+
+" Toggle line numbers
+noremap <leader>n :set number!<CR>
+
+" List characters use a less-noisy pipe to show tabs, instead of ^I
+" Don't bother showing EOL characters either.
+set listchars=tab:\|.,trail:.,extends:>,precedes:<,eol:\
+
+" Switch CWD to the directory of the open buffer
+" This (and more) inspired from http://amix.dk/vim/vimrc.html
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" When using tab completion for filenames, only complete as far
+" as the match goes
+set wildmode=longest:full
+set wildmenu
