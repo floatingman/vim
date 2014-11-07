@@ -1,2 +1,3 @@
 Align.vba: call delete('/home/dnewman/.vim/plugin/AlignPlugin.vim')|call delete('/home/dnewman/.vim/plugin/AlignMapsPlugin.vim')|call delete('/home/dnewman/.vim/plugin/cecutil.vim')|call delete('/home/dnewman/.vim/doc/Align.txt')|call delete('/home/dnewman/.vim/autoload/Align.vim')|call delete('/home/dnewman/.vim/autoload/AlignMaps.vim')
 vis.vba: call delete('/home/dnewman/.vim/plugin/visPlugin.vim')|call delete('/home/dnewman/.vim/autoload/vis.vim')|call delete('/home/dnewman/.vim/plugin/cecutil.vim')|call delete('/home/dnewman/.vim/doc/vis.txt')
+qfn.vba: call delete('/home/dnewman/.vim/plugin/qfn.vim')|call delete('/home/dnewman/.vim/doc/qfn.txt')

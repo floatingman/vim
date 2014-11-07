@@ -18,9 +18,6 @@ set autoread
 let mapleader = ','
 let g:mapleader = ','
 
-" Fast saving
-nmap <leader>w :w!<cr>
-
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
@@ -68,7 +65,7 @@ set incsearch
 nmap <leader>q :nohlsearch<CR>
 
 " Don't remove indentation when adding '#' comments
-inoremap # X#
+inoremap # X#
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
@@ -338,7 +335,7 @@ map <leader>s? z=
 " => Misc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
-noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+"noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Toggle paste mode on and off
 map <leader>p :setlocal paste!<cr>
@@ -376,7 +373,7 @@ endif
 
 
 " quick editing and reloading of vimrc
-map <leader>e :e! ~/.vim/vimrc<cr>
+"map <leader>e :e! ~/.vim/vimrc<cr>
 autocmd! bufwritepost vimrc source ~/.vim/vimrc
 
 " indent the whole file and return to original position
@@ -643,3 +640,37 @@ let g:ctrlp_switch_buffer = 0
 
 " Search by tag - massively useful
 map <leader>. :CtrlPTag<CR>
+
+let g:vimwiki_list = [{'path': '~/work/personal/vimwiki/', 'path_html': '~/work/personal/vimwiki/html'}]
+
+" Easy Motion: Search for character
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_smartcase = 1
+nmap s <Plug>(easymotion-s)
+nmap S <Plug>(easymotion-s2)
+
+" Gundo: Toggle undo history pane.
+nmap <leader>u :GundoToggle<CR>
+
+" NERDTree (often requires a redraw)
+nmap <leader>e :NERDTreeToggle<CR>:sleep 100m<CR>:redraw!<CR>
+nmap <leader>f :NERDTreeFocus<CR>
+
+" TagBar
+nmap <leader>b :TagbarToggle<CR>
+
+" QFN (mnemonic: 'a' for annotate)
+map <leader>an :QFNAddQ<CR>
+map <leader>as :QFNSave annotations.txt<CR>
+" I don't even know how to use Ex mode.
+nnoremap Q <nop>
+" Toggle on diff mode for the current buffer.
+nmap <leader>d :call DiffToggle()<CR>
+function! DiffToggle()
+	if &diff
+		diffoff
+	else
+		diffthis
+	end
+endfunction
