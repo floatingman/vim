@@ -1,7 +1,7 @@
 " vis.vim:
 " Function:	Perform an Ex command on a visual highlighted block (CTRL-V).
-" Version:	20
-" Date:		Mar 29, 2013
+" Version:	21c	ASTRO-ONLY
+" Date:		Apr 02, 2013
 " GetLatestVimScripts: 1066 1 cecutil.vim
 " GetLatestVimScripts: 1195 1 :AutoInstall: vis.vim
 " Verse: For am I now seeking the favor of men, or of God? Or am I striving
@@ -19,7 +19,7 @@ if &cp || exists("g:loaded_vis")
   finish
 endif
 let s:keepcpo    = &cpo
-let g:loaded_vis = "v20"
+let g:loaded_vis = "v21c"
 set cpo&vim
 
 " ---------------------------------------------------------------------
@@ -254,7 +254,29 @@ fun! s:SaveUserSettings()
   let s:keep_ve    = &ve
   let s:keep_ww    = &ww
   let s:keep_cedit = &cedit
-  set lz magic nofen noic nosol ve=all ww= fo=nroql2 cedit&
+  set lz magic nofen noic nosol ww= fo=nroql2 cedit&
+  " determine whether or not "ragged right" is in effect for the selected region
+  let raggedright= 0
+  norm! `>
+  let rrcol = col(".")
+  while line(".") >= line("'<")
+"   call Decho(".line#".line(".").": col(.)=".col('.')." rrcol=".rrcol)
+   if col(".") != rrcol
+    let raggedright = 1
+	break
+   endif
+   if line(".") == 1
+	break
+   endif
+   norm! k
+  endwhile
+  if raggedright
+"   call Decho("ragged right: set ve=all")
+   set ve=all
+  else
+"   call Decho("smooth right: set ve=")
+   set ve=
+  endif
 
   " Save any contents in register a
   let s:rega= @a
