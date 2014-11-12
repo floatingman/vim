@@ -26,6 +26,14 @@ NeoBundle 'Shougo/vimproc.vim', {
 			\		'unix' : 'gmake',
 			\		},
 			\ }
+NeoBundle 'jlanzarotta/bufexplorer'
+NeoBundle 'vim-scripts/Gundo'
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'majutsushi/tagbar'
+NeoBundle 'vim-scripts/vim-coffee-script'
+NeoBundle 'vimwiki/vimwiki'
 call neobundle#end()
 
 " Enable filetype plugins
@@ -656,9 +664,6 @@ vnoremap { "zdi{<C-R>z}<ESC>
 vnoremap [ "zdi[<C-R>z]<ESC>
 vnoremap ' "zdi'<C-R>z'<ESC>
 vnoremap " "zdi"<C-R>z"<ESC>
-
-" Activate pathogen
-execute pathogen#infect()
 
 " Ctrl-P Plugin
 let g:ctrlp_map = '<leader>o'
