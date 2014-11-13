@@ -716,6 +716,15 @@ nnoremap <silent> <S-Tab> :NERDTreeToggle<CR>
 
 "nmap <leader>e :NERDTreeToggle<CR>:sleep 100m<CR>:redraw!<CR>
 "nmap <leader>f :NERDTreeFocus<CR>
+let NERDTreeShowBookmarks=1
+let NERDTreeShowHidden=1
+let NERDTreeIgnore=['\~$','\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+
+"Close vim if the only window open is nerdtree
+autocmd MyAutoCmd BufEnter *
+      \ if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+
 
 " TagBar
 nmap <leader>b :TagbarToggle<CR>
@@ -831,9 +840,8 @@ nnoremap <Leader>gw :Gwrite<cr>
 " Quickly stage, commit, and push the current file, Useful for editing .vimrc
 nnoremap <Leader>gg :Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr>
 
-"==============================================================================
-"Unite
-"==============================================================================
+
+"F Key mappings
 nmap <F1> [unite]h
 
 "<F3>: Gundo
@@ -1020,4 +1028,28 @@ function! s:unite_session_on_enter()
     Unite -buffer-name=sessions session
   endif
 endfunction
+
+"==============================================================================
+"Autocommands
+"==============================================================================
+
+"Turn on cursorline only on active window
+"Cursorline makes things REALLY slow for me. Especially moving left and right
+"on the same line when syntax higlight is on
+
+function! CursorPing()
+  set cursorline cursorcolumn
+  redraw
+  sleep 200m
+  set nocursorline nocursorcolumn
+endfunction
+
+" q quits in certain page types
+autocmd MyAutoCmd FileType help,quickrun
+      \ if (!&modifiable || &ft==#'quickrun') |
+      \ nnoremap <silent> <buffer> q :q<cr>|
+      \ nnoremap <silent> <buffer> <esc><esc> :q<cr>|
+      \ endif
+autocmd MyAutoCmd FileType qf nnoremap <silent> <buffer> q :q<CR>
+
 
