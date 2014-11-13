@@ -39,6 +39,15 @@ NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neocomplcache.vim'
 NeoBundle 'c9s/perlomni.vim'
 NeoBundle 'Shougo/vimshell.vim'
+
+"Snippets
+NeoBundle 'honza/vim-snippets'
+NeoBundle 'SirVer/ultisnips'
+
+"git plugins
+NeoBundle 'airblade/vim-gitgutter'
+NeoBundle 'tpope/vim-fugitive'
+
 call neobundle#end()
 
 " Enable filetype plugins
@@ -830,3 +839,16 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
+
+"==============================================================================
+"Fugitive
+"==============================================================================
+nnoremap <Leader>gb :Gblame<cr>
+nnoremap <Leader>gc :Gcommit<cr>
+nnoremap <Leader>gd :Gdiff<cr>
+nnoremap <Leader>gp :Git push<cr>
+nnoremap <Leader>gr :Gremove<cr>
+nnoremap <Leader>gs :Gstatus<cr>
+nnoremap <Leader>gw :Gwrite<cr>
+" Quickly stage, commit, and push the current file, Useful for editing .vimrc
+nnoremap <Leader>gg :Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr>
