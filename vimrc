@@ -849,6 +849,9 @@ nnoremap W :w<cr>
 "redo
 nnoremap U :redo<cr>
 
+"H: Go to beginning of line
+noremap H ^
+
 "REINDENT file
 nnoremap R mqHmwgg=G`wzt`q
 
