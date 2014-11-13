@@ -1,11 +1,11 @@
 if !1 | finish |endif
 
 if has('vim_starting')
-	" don't bother with vi compatibility
-	set nocompatible
+  " don't bother with vi compatibility
+  set nocompatible
 
-	" Required
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+  " Required
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 " Required:
 call neobundle#begin(expand('~/.vim/bundle/'))
@@ -18,14 +18,14 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " Refer to |:NeoBundle-examples|.
 " Note: You don't set neobundle setting in .gvimrc!
 NeoBundle 'Shougo/vimproc.vim', {
-			\ 'build' : {
-			\		'windows' : 'tools\\update-dll-mingw',
-			\		'cygwin' : 'make -f make_cygwin.mak',
-			\		'mac'		: 'make -f make_mac.mak',
-			\		'linux' : 'make',
-			\		'unix' : 'gmake',
-			\		},
-			\ }
+      \ 'build' : {
+      \		'windows' : 'tools\\update-dll-mingw',
+      \		'cygwin' : 'make -f make_cygwin.mak',
+      \		'mac'		: 'make -f make_mac.mak',
+      \		'linux' : 'make',
+      \		'unix' : 'gmake',
+      \		},
+      \ }
 NeoBundle 'jlanzarotta/bufexplorer'
 NeoBundle 'vim-scripts/Gundo'
 NeoBundle 'scrooloose/nerdtree'
@@ -72,7 +72,7 @@ NeoBundleCheck
 " Local Settings
 "==============================================================
 try
-	source ~/.vimrc.local
+  source ~/.vimrc.local
 catch
 endtry
 
@@ -81,14 +81,11 @@ endtry
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set augroup
 augroup MyAutoCmd
-	autocmd!
+  autocmd!
 augroup END
 
 " Sets how many lines of history VIM has to remember
 set history=10000
-
-" Enable filetype plugins
-filetype plugin indent on
 
 " set to reload file if changed outside of vim
 set autoread
@@ -111,6 +108,11 @@ nnoremap <silent> <Leader>1 :set paste!<cr>
 "leader 2:  Toggle Tagbar
 nnoremap <silent> <Leader>2 :TagbarToggle<cr>
 
+"<Leader>q: Quit all, useful in vimdiff
+nnoremap <Leader>q :qa<cr>
+
+" <Leader>f: Open Quickfix
+nnoremap <silent> <Leader>f :botright copen<CR>
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
@@ -158,7 +160,7 @@ set incsearch
 set winheight=50
 
 " Turn off highlights
-nmap <leader>q :nohlsearch<CR>
+"nmap <leader>q :nohlsearch<CR>
 
 " Don't remove indentation when adding '#' comments
 inoremap # X#
@@ -209,30 +211,30 @@ syntax on
 
 "set colorscheme based on $VIMCOLOR or use dusk by default
 if $VIMCOLOR == 'light'
-	set background=light
-	let g:solarized_termcolors=256
-	color solarized
+  set background=light
+  let g:solarized_termcolors=256
+  color solarized
 elseif $VIMCOLOR == 'dark'
-	set background=dark
-	let g:solarized_termcolors=256
-	color solarized
+  set background=dark
+  let g:solarized_termcolors=256
+  color solarized
 elseif $VIMCOLOR == 'molokai'
-	let g:molokai_original=1
-	let g:rehash256=1
-	color molokai
+  let g:molokai_original=1
+  let g:rehash256=1
+  color molokai
 elseif $VIMCOLOR != ''
-	color $VIMCOLOR
+  color $VIMCOLOR
 else
-	color dusk
+  color dusk
 endif
 
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-	set t_Co=256
+  set t_Co=256
 endif
 
 if has("mac") || has("macunix")
-	set gfn=Menlo:h15
+  set gfn=Menlo:h15
 elsif has("win16") || has("win32")
 set gfn=Bitstream\ Vera\ Sans\ Mono:h11
 elsif has("linux")
@@ -247,9 +249,9 @@ set guioptions-=L
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-	set guioptions-=T
-	set guioptions-=e
-	set guitablabel=%M\ %t
+  set guioptions-=T
+  set guioptions-=e
+  set guitablabel=%M\ %t
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -333,9 +335,9 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
-			\ if line("'\"") > 0 && line("'\"") <= line("$") |
-			\   exe "normal! g`\"" |
-			\ endif
+      \ if line("'\"") > 0 && line("'\"") <= line("$") |
+      \   exe "normal! g`\"" |
+      \ endif
 " Remember info about open buffers on close
 set viminfo^=% 
 
@@ -348,14 +350,14 @@ set laststatus=2
 " Format the status line
 let &stl=""
 if exists('*StatuslineColor')
-	let &stl.="%{StatuslineColor()}"
+  let &stl.="%{StatuslineColor()}"
 else
-	hi StatusLine ctermfg=237 ctermbg=250
-	hi User1 ctermfg=015 ctermbg=237
-	hi User2 ctermfg=232 ctermbg=237
-	hi User3 ctermfg=184 ctermbg=237
-	hi User4 ctermfg=184 ctermbg=237
-	hi User5 ctermfg=184 ctermbg=237
+  hi StatusLine ctermfg=237 ctermbg=250
+  hi User1 ctermfg=015 ctermbg=237
+  hi User2 ctermfg=232 ctermbg=237
+  hi User3 ctermfg=184 ctermbg=237
+  hi User4 ctermfg=184 ctermbg=237
+  hi User5 ctermfg=184 ctermbg=237
 endif
 let &stl.="%1*%f"												" filename
 let &stl.="%="													" everything after this is right-aligned
@@ -381,17 +383,17 @@ vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
 vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
 
 if has("mac") || has("macunix")
-	nmap <D-j> <M-j>
-	nmap <D-k> <M-k>
-	vmap <D-j> <M-j>
-	vmap <D-k> <M-k>
+  nmap <D-j> <M-j>
+  nmap <D-k> <M-k>
+  vmap <D-j> <M-j>
+  vmap <D-k> <M-k>
 endif
 
 " Delete trailing white space on save, useful for Python and CoffeeScript ;)
 func! DeleteTrailingWS()
-	exe "normal mz"
-	%s/\s\+$//ge
-	exe "normal `z"
+  exe "normal mz"
+  %s/\s\+$//ge
+  exe "normal `z"
 endfunc
 autocmd BufWrite *.py :call DeleteTrailingWS()
 autocmd BufWrite *.coffee :call DeleteTrailingWS()
@@ -432,42 +434,42 @@ map <leader>p :setlocal paste!<cr>
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
 if exists('$TMUX') " Support resizing in tmux
-	set ttymouse=xterm2
+  set ttymouse=xterm2
 endif
 
 let &colorcolumn="80,".join(range(120,999), ",")
 
 " Highlight trailing whitespace
 if hlexists("TrailingWhitespace")
-	match TrailingWhitespace /\s\+$/
+  match TrailingWhitespace /\s\+$/
 endif
 
 " Visually indicate when I'm over 80-cols on line length, at add the ability
 " to turn it on/off. Show text with a dark-red background, but show regular
 " syntax highlighting.
 if hlexists("OverLength")
-	map <leader>k :call ToggleOverLength()<CR>
-	function! ToggleOverLength()
-		if exists('w:m1')
-			call matchdelete(w:m1)
-			unlet w:m1
-		else
-			let w:m1=matchadd('OverLength', '\%81v.\+', 11)
-		endif
-	endfunction
-	"call ToggleOverLength()
+  map <leader>k :call ToggleOverLength()<CR>
+  function! ToggleOverLength()
+    if exists('w:m1')
+      call matchdelete(w:m1)
+      unlet w:m1
+    else
+      let w:m1=matchadd('OverLength', '\%81v.\+', 11)
+    endif
+  endfunction
+  "call ToggleOverLength()
 else
-	map <leader>k :echo "No 'OverLength' highlight group in color settings."<CR>
+  map <leader>k :echo "No 'OverLength' highlight group in color settings."<CR>
 endif
 
 
 " quick editing and reloading of vimrc
-"map <leader>e :e! ~/.vim/vimrc<cr>
+map <leader>e :e! ~/.vim/vimrc<cr>
 autocmd MyAutoCmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc
-			\ so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+      \ so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 
 try
-	lang en_US
+  lang en_US
 catch
 endtry
 
@@ -480,51 +482,51 @@ endtry
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CmdLine(str)
-	exe "menu Foo.Bar :" . a:str
-	emenu Foo.Bar
-	unmenu Foo
+  exe "menu Foo.Bar :" . a:str
+  emenu Foo.Bar
+  unmenu Foo
 endfunction
 
 function! VisualSelection(direction, extra_filter) range
-	let l:saved_reg = @"
-	execute "normal! vgvy"
+  let l:saved_reg = @"
+  execute "normal! vgvy"
 
-	let l:pattern = escape(@", '\\/.*$^~[]')
-	let l:pattern = substitute(l:pattern, "\n$", "", "")
+  let l:pattern = escape(@", '\\/.*$^~[]')
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-	if a:direction == 'b'
-		execute "normal ?" . l:pattern . "^M"
-	elseif a:direction == 'gv'
-		call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
-	elseif a:direction == 'replace'
-		call CmdLine("%s" . '/'. l:pattern . '/')
-	elseif a:direction == 'f'
-		execute "normal /" . l:pattern . "^M"
-	endif
+  if a:direction == 'b'
+    execute "normal ?" . l:pattern . "^M"
+  elseif a:direction == 'gv'
+    call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.' . a:extra_filter)
+  elseif a:direction == 'replace'
+    call CmdLine("%s" . '/'. l:pattern . '/')
+  elseif a:direction == 'f'
+    execute "normal /" . l:pattern . "^M"
+  endif
 
-	let @/ = l:pattern
-	let @" = l:saved_reg
+  let @/ = l:pattern
+  let @" = l:saved_reg
 endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-	let l:currentBufNum = bufnr("%")
-	let l:alternateBufNum = bufnr("#")
+  let l:currentBufNum = bufnr("%")
+  let l:alternateBufNum = bufnr("#")
 
-	if buflisted(l:alternateBufNum)
-		buffer #
-	else
-		bnext
-	endif
+  if buflisted(l:alternateBufNum)
+    buffer #
+  else
+    bnext
+  endif
 
-	if bufnr("%") == l:currentBufNum
-		new
-	endif
+  if bufnr("%") == l:currentBufNum
+    new
+  endif
 
-	if buflisted(l:currentBufNum)
-		execute("bdelete! ".l:currentBufNum)
-	endif
+  if buflisted(l:currentBufNum)
+    execute("bdelete! ".l:currentBufNum)
+  endif
 endfunction
 
 " Text bubbling (http://vimcasts.org/episodes/bubbling-text/)
@@ -599,13 +601,13 @@ set wildignore+=*/.nx/**,*.app
 
 map <leader>h :call ToggleHex()<CR>
 function! ToggleHex()
-	if exists('w:hex')
-		unlet w:hex
-		exec ':%!xxd -r'
-	else
-		exec ':%!xxd'
-		let w:hex=1
-	endif
+  if exists('w:hex')
+    unlet w:hex
+    exec ':%!xxd -r'
+  else
+    exec ':%!xxd'
+    let w:hex=1
+  endif
 endfunction
 
 " Close the quickfix window
@@ -622,53 +624,53 @@ command! Dec execute '%!openssl aes-256-cbc -d -salt'
 " Auto encrypt/decrypt .aes files with AESCrypt
 " (It's more portable than openssl on Android)
 function! s:AESReadPre()
-	set cmdheight=3
-	set viminfo=
-	set noswapfile
-	set shell=/bin/sh
-	set bin
+  set cmdheight=3
+  set viminfo=
+  set noswapfile
+  set shell=/bin/sh
+  set bin
 endfunction
 function! s:AESReadPost()
-	let l:expr = "0,$!aescrypt -d -"
+  let l:expr = "0,$!aescrypt -d -"
 
-	silent! execute l:expr
-	if v:shell_error
-		silent! 0,$y
-		silent! undo
-		echo "COULD NOT DECRYPT USING EXPRESSION: " . expr
-		echo "ERROR FROM AESCRYPT:"
-		echo @"
-		echo "COULD NOT DECRYPT"
-		return
-	endif
-	set nobin
-	set cmdheight&
-	set shell&
-	execute ":doautocmd BufReadPost ".expand("%:r")
-	redraw!
+  silent! execute l:expr
+  if v:shell_error
+    silent! 0,$y
+    silent! undo
+    echo "COULD NOT DECRYPT USING EXPRESSION: " . expr
+    echo "ERROR FROM AESCRYPT:"
+    echo @"
+    echo "COULD NOT DECRYPT"
+    return
+  endif
+  set nobin
+  set cmdheight&
+  set shell&
+  execute ":doautocmd BufReadPost ".expand("%:r")
+  redraw!
 endfunction
 function! s:AESWritePre()
-	set cmdheight=3
-	set shell=/bin/sh
-	set bin
-	let l:expr = "0,$!aescrypt -e -"
-	silent! execute l:expr
-	if v:shell_error
-		silent! 0,$y
-		silent! undo
-		echo "COULD NOT ENCRYPT USING EXPRESSION: " . expr
-		echo "ERROR FROM AESCRYPT:"
-		echo @"
-		echo "COULD NOT ENCRYPT"
-		return
-	endif
+  set cmdheight=3
+  set shell=/bin/sh
+  set bin
+  let l:expr = "0,$!aescrypt -e -"
+  silent! execute l:expr
+  if v:shell_error
+    silent! 0,$y
+    silent! undo
+    echo "COULD NOT ENCRYPT USING EXPRESSION: " . expr
+    echo "ERROR FROM AESCRYPT:"
+    echo @"
+    echo "COULD NOT ENCRYPT"
+    return
+  endif
 endfunction
 function! s:AESWritePost()
-	silent! undo
-	set nobin
-	set shell&
-	set cmdheight&
-	redraw!
+  silent! undo
+  set nobin
+  set shell&
+  set cmdheight&
+  redraw!
 endfunction
 autocmd BufReadPre,FileReadPre *.aescrypt call s:AESReadPre()
 autocmd BufReadPost,FileReadPost *.aescrypt call s:AESReadPost()
@@ -710,8 +712,10 @@ nmap S <Plug>(easymotion-s2)
 nmap <leader>u :GundoToggle<CR>
 
 " NERDTree (often requires a redraw)
-nmap <leader>e :NERDTreeToggle<CR>:sleep 100m<CR>:redraw!<CR>
-nmap <leader>f :NERDTreeFocus<CR>
+nnoremap <silent> <S-Tab> :NERDTreeToggle<CR>
+
+"nmap <leader>e :NERDTreeToggle<CR>:sleep 100m<CR>:redraw!<CR>
+"nmap <leader>f :NERDTreeFocus<CR>
 
 " TagBar
 nmap <leader>b :TagbarToggle<CR>
@@ -724,11 +728,11 @@ nnoremap Q <nop>
 " Toggle on diff mode for the current buffer.
 nmap <leader>d :call DiffToggle()<CR>
 function! DiffToggle()
-	if &diff
-		diffoff
-	else
-		diffthis
-	end
+  if &diff
+    diffoff
+  else
+    diffthis
+  end
 endfunction
 
 "NeoComplete
@@ -743,14 +747,14 @@ let g:neocomplete#sources#syntax#min_keyword_length = 3
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 " Define dictionary.
 let g:neocomplete#sources#dictionary#dictionaries = {
-    \ 'default' : '',
-    \ 'vimshell' : $HOME.'/.vimshell_hist',
-    \ 'scheme' : $HOME.'/.gosh_completions'
-        \ }
+      \ 'default' : '',
+      \ 'vimshell' : $HOME.'/.vimshell_hist',
+      \ 'scheme' : $HOME.'/.gosh_completions'
+      \ }
 
 " Define keyword.
 if !exists('g:neocomplete#keyword_patterns')
-    let g:neocomplete#keyword_patterns = {}
+  let g:neocomplete#keyword_patterns = {}
 endif
 let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
@@ -834,3 +838,26 @@ nmap <F1> [unite]h
 
 "<F3>: Gundo
 nnoremap <F3> :<C-u>GundoToggle<CR>
+
+"Shift key mappings
+"Q closes windows
+nnoremap Q :q<cr>
+
+"W: Save
+nnoremap W :w<cr>
+
+"redo
+nnoremap U :redo<cr>
+
+"REINDENT file
+nnoremap R mqHmwgg=G`wzt`q
+
+" Quick horizontal splits
+nnoremap _ :sp<cr>
+
+" Quick vertical splits
+nnoremap <bar> :vsp<cr>
+
+" :: Remap to ,. After all the remapping, ; goes to command mode, . repeats
+" fFtT, : repeats it bacward, and , is the leader
+noremap : ,
