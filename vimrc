@@ -34,11 +34,19 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'vim-scripts/vim-coffee-script'
 NeoBundle 'vimwiki/vimwiki'
-NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neocomplcache.vim'
 NeoBundle 'c9s/perlomni.vim'
 NeoBundle 'Shougo/vimshell.vim'
+
+"Unite bundles
+NeoBundle 'Shougo/unite.vim'
+NeoBundle 'Shougo/unite-outline'
+NeoBundle 'Shougo/unite-help'
+NeoBundle 'Shougo/unite-session'
+NeoBundle 'Shougo/neomru.vim'
+NeoBundle 'thinca/vim-unite-history'
+NeoBundle 'mileszs/ack.vim'
 
 "Snippets
 NeoBundle 'honza/vim-snippets'
