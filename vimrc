@@ -48,11 +48,24 @@ filetype plugin indent on
 " this will conveniently prompt you to install them
 NeoBundleCheck
 
+"==============================================================
+" Local Settings
+"==============================================================
+try
+	source ~/.vimrc.local
+catch
+endtry
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " =>General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Set augroup
+augroup MyAutoCmd
+	autocmd!
+augroup END
+
 " Sets how many lines of history VIM has to remember
-set history=700
+set history=10000
 
 " Enable filetype plugins
 filetype plugin indent on
@@ -93,7 +106,7 @@ noremap <C-p> :bprev<CR>
 noremap <C-n> :bnext<CR>
 
 " Configure backspace to work as it should
-set backspace=start,eol
+set backspace=eol,start,indent
 set whichwrap+=<,>,h,l
 
 " Ignore case when searching
@@ -107,6 +120,9 @@ set hlsearch
 
 " Makes search act like search in modern browsers
 set incsearch
+
+" Set sensible heights for splits
+set winheight=50
 
 " Turn off highlights
 nmap <leader>q :nohlsearch<CR>
@@ -147,14 +163,16 @@ set foldminlines=5
 " Fold column
 set foldcolumn=0
 
+" Always splits to the right and below
+set splitright
+set splitbelow
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
-syntax enable
-
+syntax on
 
 "set colorscheme based on $VIMCOLOR or use dusk by default
 if $VIMCOLOR == 'light'
@@ -218,33 +236,24 @@ set noswapfile
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Be smart when using tabs ;)
+" Tab settings
+set expandtab
+set shiftwidth=2
+set tabstop=8
+set softtabstop=2
 set smarttab
 
+
+" Text display settings 
+set linebreak
+set textwidth=80
 set autoindent
-set smartindent
-
-" Linewidth to endless
-set textwidth=0
-
-" Do not wrap lines automatically
 set nowrap
+set whichwrap+=h,l,<,>,[,]
+
 
 " Don't show linenumbers by default
 set nonumber
-
-" 1 tab == 2 spaces
-set shiftwidth=2
-set tabstop=2
-set softtabstop=2
-
-" Linebreak on 500 characters
-"set lbr
-"set tw=72
-
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
 
 
 """"""""""""""""""""""""""""""
@@ -421,7 +430,14 @@ endif
 
 " quick editing and reloading of vimrc
 "map <leader>e :e! ~/.vim/vimrc<cr>
-autocmd! bufwritepost vimrc source ~/.vim/vimrc
+autocmd MyAutoCmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc
+			\ so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
+
+try
+	lang en_US
+catch
+endtry
+
 
 " indent the whole file and return to original position
 :nmap <leader>= mzgg=G\`z
@@ -582,8 +598,21 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " When using tab completion for filenames, only complete as far
 " as the match goes
-set wildmode=longest:full
-set wildmenu
+set completeopt=longest,menuone
+
+set wildmode=list:longest,full
+set wildmenu "turn on wild menu
+set wildignore=*.o,*.obj,*~ "Stuff to ignore when tab completing
+set wildignore+=*DS_Store*
+set wildignore+=vendor/rails/**
+set wildignore+=vendor/cache/**
+set wildignore+=*.gem
+set wildignore+=log/**
+set wildignore+=tmp/**
+set wildignore+=*.png,*.jpg,*.gif
+set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/Library/**,*/rbenv/**
+set wildignore+=*/.nx/**,*.app
+
 
 map <leader>h :call ToggleHex()<CR>
 function! ToggleHex()
