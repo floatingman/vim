@@ -48,6 +48,9 @@ NeoBundle 'SirVer/ultisnips'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tpope/vim-fugitive'
 
+"Web Dev
+NeoBundle 'psykidellic/vim-jekyll'
+
 call neobundle#end()
 
 " Enable filetype plugins
