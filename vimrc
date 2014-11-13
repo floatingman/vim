@@ -97,6 +97,19 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = ','
 let g:mapleader = ','
+let maplocalleader = ","
+let g:maplocalleader = ","
+
+"Cool leader quickcommands
+
+"Fast force quiting
+nnoremap <Leader>`` :qa!<cr>
+
+"leader 1: toggle paste mode
+nnoremap <silent> <Leader>1 :set paste!<cr>
+
+"leader 2:  Toggle Tagbar
+nnoremap <silent> <Leader>2 :TagbarToggle<cr>
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
@@ -520,56 +533,6 @@ nmap <C-Down> ]e
 vmap <C-Up> [egv
 vmap <C-Down> ]egv
 
-" Set window size
-nmap <leader>1 :set lines=40 columns=85<CR><C-w>o
-nmap <leader>2 :set lines=50 columns=171<CR><C-w>v
-
-" Per-file options
-autocmd BufNewFile,BufRead *.py 	setlocal sw=4 ts=4 sts=4 et
-autocmd BufNewFile,BufRead *.md 	setlocal noet tw=74 list
-autocmd BufNewFile,BufRead *.wiki setlocal noet tw=74
-autocmd BufNewFile,BufRead *.rst 	setlocal sw=4 ts=4 sts=4 tw=74 et
-
-" Cheap/simple spreadsheets in Vim
-autocmd BufNewFile,BufRead *.tsv 	setlocal ts=16 sts=16 noet number list
-
-" Columnar movements
-autocmd BufNewFile,BufRead *.tsv 	map L f 	W
-autocmd BufNewFile,BufRead *.tsv 	map H F 	B
-
-"Show tabs and line numbers when coding
-autocmd BufNewFile,BufRead *.py 		setlocal list number
-autocmd BufNewFile,BufRead *.php 		setlocal list number
-autocmd BufNewFile,BufRead *.js 		setlocal list number
-autocmd BufNewFile,BufRead *.go 		setlocal list number
-autocmd BufNewFile,BufRead *.c 			setlocal list number
-autocmd BufNewFile,BufRead *.cpp 		setlocal list number
-autocmd BufNewFile,BufRead *.lua		setlocal list number
-autocmd BufNewFile,BufRead *.html		setlocal list number
-autocmd BufNewFile,BufRead *.coffee	setlocal list number
-
-" Linters
-autocmd BufNewFile,BufRead *.php map <leader>; :!php -l %<CR>
-autocmd BufNewFile,BufRead *.js  map <leader>; :!jshint %<CR>
-autocmd BufNewFile,BufRead *.py  map <leader>; :!pylint -r n -f colorized %<CR>
-
-" Redraw
-noremap <leader>r :redraw!<CR>
-
-" Toggle visible tab characters
-noremap <leader>l :set list!<CR>
-
-" Toggle line numbers
-noremap <leader>n :set number!<CR>
-
-" List characters use a less-noisy pipe to show tabs, instead of ^I
-" Don't bother showing EOL characters either.
-set listchars=tab:\|.,trail:.,extends:>,precedes:<,eol:\
-
-" Set window size
-nmap <leader>1 :set lines=40 columns=85<CR><C-w>o
-nmap <leader>2 :set lines=50 columns=171<CR><C-w>v
-
 " Per-file options
 autocmd BufNewFile,BufRead *.py 	setlocal sw=4 ts=4 sts=4 et
 autocmd BufNewFile,BufRead *.md 	setlocal noet tw=74 list
@@ -863,3 +826,11 @@ nnoremap <Leader>gs :Gstatus<cr>
 nnoremap <Leader>gw :Gwrite<cr>
 " Quickly stage, commit, and push the current file, Useful for editing .vimrc
 nnoremap <Leader>gg :Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr>
+
+"==============================================================================
+"Unite
+"==============================================================================
+nmap <F1> [unite]h
+
+"<F3>: Gundo
+nnoremap <F3> :<C-u>GundoToggle<CR>
