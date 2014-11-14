@@ -1,12 +1,11 @@
-if !1 | finish |endif
+
+" disable vi-compatibility
+set nocompatible
 
 if has('vim_starting')
-  " don't bother with vi compatibility
-  set nocompatible
-
-  " Required
   set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
+
 " Required:
 call neobundle#begin(expand('~/.vim/bundle/'))
 
@@ -67,30 +66,46 @@ NeoBundle 'bling/vim-airline'
 " Misc
 NeoBundle 'Raimondi/delimitMate'
 
+" Load local plugins, nice for doing development
+execute 'NeoBundleLocal' '~/code/vim'
+
 call neobundle#end()
 
 " Enable filetype plugins
 filetype plugin indent on
+" Enable syntax highlighting
+syntax enable
 
 " If there are uninstalled bundles found on startup,
 " this will conveniently prompt you to install them
 NeoBundleCheck
 
-"==============================================================
+"===============================================================================
 " Local Settings
-"==============================================================
+"===============================================================================
 try
   source ~/.vimrc.local
 catch
 endtry
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" =>General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"===============================================================================
+" General
+"===============================================================================
 " Set augroup
 augroup MyAutoCmd
   autocmd!
 augroup END
+
+syntax on
+
+" Solid line for vsplit separator
+set fcs=vert:│
+
+" Enable basic mouse behavior such as resizing buffers.
+set mouse=a
+
+" Give one virtual space at end of line
+set virtualedit=onemore
 
 " Sets how many lines of history VIM has to remember
 set history=10000
@@ -191,8 +206,6 @@ set splitbelow
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax on
 
 "set colorscheme based on $VIMCOLOR or use dusk by default
 if $VIMCOLOR == 'light'
@@ -489,8 +502,6 @@ command! -nargs=+ Grep execute 'silent grep! -r <args>' | copen 33
 " Remove the Windows ^M - when the encodings gets messed up
 "noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-" Enable basic mouse behavior such as resizing buffers.
-set mouse=a
 if exists('$TMUX') " Support resizing in tmux
   set ttymouse=xterm2
 endif
