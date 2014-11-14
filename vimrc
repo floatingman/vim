@@ -61,6 +61,12 @@ NeoBundle 'tpope/vim-fugitive'
 "Web Dev
 NeoBundle 'psykidellic/vim-jekyll'
 
+" Status line
+NeoBundle 'bling/vim-airline'
+
+" Misc
+NeoBundle 'Raimondi/delimitMate'
+
 call neobundle#end()
 
 " Enable filetype plugins
@@ -92,29 +98,6 @@ set history=10000
 " set to reload file if changed outside of vim
 set autoread
 
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ','
-let g:mapleader = ','
-let maplocalleader = ","
-let g:maplocalleader = ","
-
-"Cool leader quickcommands
-
-"Fast force quiting
-nnoremap <Leader>`` :qa!<cr>
-
-"leader 1: toggle paste mode
-nnoremap <silent> <Leader>1 :set paste!<cr>
-
-"leader 2:  Toggle Tagbar
-nnoremap <silent> <Leader>2 :TagbarToggle<cr>
-
-"<Leader>q: Quit all, useful in vimdiff
-nnoremap <Leader>q :qa<cr>
-
-" <Leader>f: Open Quickfix
-nnoremap <silent> <Leader>f :botright copen<CR>
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
@@ -140,7 +123,7 @@ set timeoutlen=400
 " Easy movement between buffers
 let g:buftabs_only_basename=1
 noremap <C-p> :bprev<CR>
-noremap <C-n> :bnext<CR>
+"noremap <C-n> :bnext<CR>
 
 " Configure backspace to work as it should
 set backspace=eol,start,indent
@@ -306,6 +289,12 @@ vnoremap <silent> # :call VisualSelection('b', '')<CR>
 "Leader key bindings
 "===============================================================================
 
+" With a map leader it's possible to do extra key combinations
+let mapleader = ','
+let g:mapleader = ','
+let maplocalleader = ","
+let g:maplocalleader = ","
+
 " Useful mappings for managing tabs
 map <leader>tn :tabnew<cr>
 map <leader>to :tabonly<cr>
@@ -371,6 +360,46 @@ map <leader>cw :cclose<CR>
 map <leader>co :copen<CR>
 "Clear the quickfix window
 map <leader>cc :call setqflist([])<CR>
+
+" QFN (mnemonic: 'a' for annotate)
+map <leader>an :QFNAddQ<CR>
+map <leader>as :QFNSave annotations.txt<CR>
+
+" Toggle on diff mode for the current buffer.
+nmap <leader>d :call DiffToggle()<CR>
+
+"Fugitive
+nnoremap <Leader>gb :Gblame<cr>
+nnoremap <Leader>gc :Gcommit<cr>
+nnoremap <Leader>gd :Gdiff<cr>
+nnoremap <Leader>gp :Git push<cr>
+"nnoremap <Leader>gr :Gremove<cr>
+nnoremap <Leader>gs :Gstatus<cr>
+nnoremap <Leader>gw :Gwrite<cr>
+" Quickly stage, commit, and push the current file, Useful for editing .vimrc
+nnoremap <Leader>gg :Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr>
+
+"Fast force quiting
+nnoremap <Leader>`` :qa!<cr>
+
+"leader 1: toggle paste mode
+nnoremap <silent> <Leader>1 :set paste!<cr>
+
+"leader 2:  Toggle Tagbar
+nnoremap <silent> <Leader>2 :TagbarToggle<cr>
+
+"<Leader>q: Quit all, useful in vimdiff
+nnoremap <Leader>q :qa<cr>
+
+" <Leader>f: Open Quickfix
+nnoremap <silent> <Leader>f :botright copen<CR>
+"===============================================================================
+" Normal Mode Shift Key Mappings
+"===============================================================================
+
+" Shift-Tab: NERDTree
+nnoremap <silent> <S-Tab> :NERDTreeToggle<CR>
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -459,9 +488,6 @@ command! -nargs=+ Grep execute 'silent grep! -r <args>' | copen 33
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Remove the Windows ^M - when the encodings gets messed up
 "noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Toggle paste mode on and off
-"map <leader>p :setlocal paste!<cr>
 
 " Enable basic mouse behavior such as resizing buffers.
 set mouse=a
@@ -692,12 +718,7 @@ let g:EasyMotion_smartcase = 1
 nmap s <Plug>(easymotion-s)
 nmap S <Plug>(easymotion-s2)
 
-" Gundo: Toggle undo history pane.
-nmap <leader>u :GundoToggle<CR>
-
 " NERDTree 
-nnoremap <silent> <S-Tab> :NERDTreeToggle<CR>
-
 let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\~$','\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
@@ -709,16 +730,9 @@ autocmd MyAutoCmd BufEnter *
 "NERDComment
 let NERDSpaceDelims=1
 
-" TagBar
-"nmap <leader>b :TagbarToggle<CR>
-
-" QFN (mnemonic: 'a' for annotate)
-map <leader>an :QFNAddQ<CR>
-map <leader>as :QFNSave annotations.txt<CR>
 " I don't even know how to use Ex mode.
 nnoremap Q <nop>
 " Toggle on diff mode for the current buffer.
-nmap <leader>d :call DiffToggle()<CR>
 function! DiffToggle()
   if &diff
     diffoff
@@ -809,19 +823,6 @@ endif
 " For perlomni.vim setting.
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-
-"==============================================================================
-"Fugitive
-"==============================================================================
-nnoremap <Leader>gb :Gblame<cr>
-nnoremap <Leader>gc :Gcommit<cr>
-nnoremap <Leader>gd :Gdiff<cr>
-nnoremap <Leader>gp :Git push<cr>
-nnoremap <Leader>gr :Gremove<cr>
-nnoremap <Leader>gs :Gstatus<cr>
-nnoremap <Leader>gw :Gwrite<cr>
-" Quickly stage, commit, and push the current file, Useful for editing .vimrc
-nnoremap <Leader>gg :Gwrite<cr>:Gcommit -m 'update'<cr>:Git push<cr>
 
 
 "F Key mappings
@@ -1035,4 +1036,8 @@ autocmd MyAutoCmd FileType help,quickrun
       \ endif
 autocmd MyAutoCmd FileType qf nnoremap <silent> <buffer> q :q<CR>
 
-
+"===============================================================================
+" DelimitMate
+"===============================================================================
+autocmd MyAutoCmd FileType vim let b:delimitMate_quotes = "'"
+let delimitMate_expand_cr = 1
