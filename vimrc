@@ -30,7 +30,6 @@ NeoBundle 'jlanzarotta/bufexplorer'
 NeoBundle 'vim-scripts/Gundo'
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'majutsushi/tagbar'
 NeoBundle 'vim-scripts/vim-coffee-script'
 NeoBundle 'vimwiki/vimwiki'
@@ -51,6 +50,9 @@ NeoBundle 'mileszs/ack.vim'
 "Snippets
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'SirVer/ultisnips'
+
+"Comments
+NeoBundle 'scrooloose/nerdcommenter'
 
 "git plugins
 NeoBundle 'airblade/vim-gitgutter'
@@ -299,6 +301,77 @@ set nonumber
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
+
+"===============================================================================
+"Leader key bindings
+"===============================================================================
+
+" Useful mappings for managing tabs
+map <leader>tn :tabnew<cr>
+map <leader>to :tabonly<cr>
+map <leader>tc :tabclose<cr>
+map <leader>tm :tabmove<CR> 
+map <leader>]  :tabnext<CR>
+map <leader>[  :tabprev<CR>
+
+" Close the current buffer
+map <leader>bd :Bclose<cr>
+
+" Close all the buffers
+map <leader>ba :1,1000 bd!<cr>
+
+" Opens a new tab with the current buffer's path
+" Super useful when editing files in the same directory
+map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+
+" Switch CWD to the directory of the open buffer
+map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+" Search for the word under the cursor within the current file and display
+" results in the quickfix
+map <leader>g :execute "vimgrep /" . expand("<cword>") . "/j %" <Bar> cw<CR>
+" Same as above, but do it recursively for all files under the CWD.
+map <leader>gr :execute "vimgrep /" . expand("<cword") . "/j **" <Bar> cw<CR>
+" Same as above, but use Ack.
+map <leader>ga :execute "Ack " . expand("<cword>")<CR>
+
+" <Leader>s: Spell checking shortcuts
+nnoremap <Leader>ss :setlocal spell!<cr>
+nnoremap <Leader>sj ]s
+nnoremap <Leader>sk [s
+nnoremap <Leader>sa zg]s
+nnoremap <Leader>sd 1z=
+nnoremap <Leader>sf z=
+
+" quick editing and reloading of vimrc
+map <leader>e :e! ~/.vim/vimrc<cr>
+
+" indent the whole file and return to original position
+:nmap <leader>= mzgg=G\`z
+
+" Linters
+autocmd BufNewFile,BufRead *.php map <leader>; :!php -l %<CR>
+autocmd BufNewFile,BufRead *.js  map <leader>; :!jshint %<CR>
+autocmd BufNewFile,BufRead *.py  map <leader>; :!pylint -r n -f colorized %<CR>
+
+" Redraw
+noremap <leader>r :redraw!<CR>
+
+" Toggle visible tab characters
+noremap <leader>l :set list!<CR>
+
+" Toggle line numbers
+noremap <leader>n :set number!<CR>
+
+map <leader>h :call ToggleHex()<CR>
+
+" Close the quickfix window
+map <leader>cw :cclose<CR>
+"Open the quickfix window
+map <leader>co :copen<CR>
+"Clear the quickfix window
+map <leader>cc :call setqflist([])<CR>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -312,26 +385,6 @@ map <C-k> <C-W>k
 map <C-h> <C-W>h
 map <C-l> <C-W>l
 
-" Close the current buffer
-map <leader>bd :Bclose<cr>
-
-" Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
-
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove<CR> 
-map <leader>]	 :tabnext<CR>
-map <leader>[	 :tabprev<CR>
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -400,27 +453,6 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 " Show vimgrep matches in the quickfix window
 command! -nargs=+ Grep execute 'silent grep! -r <args>' | copen 33
-" Search for the word under the cursor within the current file and display
-" results in the quickfix
-map <leader>g :execute "vimgrep /" . expand("<cword>") . "/j %" <Bar> cw<CR>
-" Same as above, but do it recursively for all files under the CWD.
-map <leader>gr :execute "vimgrep /" . expand("<cword") . "/j **" <Bar> cw<CR>
-" Same as above, but use Ack.
-map <leader>ga :execute "Ack " . expand("<cword>")<CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Misc
@@ -463,8 +495,6 @@ else
 endif
 
 
-" quick editing and reloading of vimrc
-map <leader>e :e! ~/.vim/vimrc<cr>
 autocmd MyAutoCmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc
       \ so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
 
@@ -472,11 +502,6 @@ try
   lang en_US
 catch
 endtry
-
-
-" indent the whole file and return to original position
-:nmap <leader>= mzgg=G\`z
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
@@ -559,27 +584,9 @@ autocmd BufNewFile,BufRead *.lua		setlocal list number
 autocmd BufNewFile,BufRead *.html		setlocal list number
 autocmd BufNewFile,BufRead *.coffee	setlocal list number
 
-" Linters
-autocmd BufNewFile,BufRead *.php map <leader>; :!php -l %<CR>
-autocmd BufNewFile,BufRead *.js  map <leader>; :!jshint %<CR>
-autocmd BufNewFile,BufRead *.py  map <leader>; :!pylint -r n -f colorized %<CR>
-
-" Redraw
-noremap <leader>r :redraw!<CR>
-
-" Toggle visible tab characters
-noremap <leader>l :set list!<CR>
-
-" Toggle line numbers
-noremap <leader>n :set number!<CR>
-
 " List characters use a less-noisy pipe to show tabs, instead of ^I
 " Don't bother showing EOL characters either.
 set listchars=tab:\|.,trail:.,extends:>,precedes:<,eol:\
-
-" Switch CWD to the directory of the open buffer
-" This (and more) inspired from http://amix.dk/vim/vimrc.html
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
 " When using tab completion for filenames, only complete as far
 " as the match goes
@@ -598,8 +605,6 @@ set wildignore+=*.png,*.jpg,*.gif
 set wildignore+=*.so,*.swp,*.zip,*/.Trash/**,*.pdf,*.dmg,*/Library/**,*/rbenv/**
 set wildignore+=*/.nx/**,*.app
 
-
-map <leader>h :call ToggleHex()<CR>
 function! ToggleHex()
   if exists('w:hex')
     unlet w:hex
@@ -609,13 +614,6 @@ function! ToggleHex()
     let w:hex=1
   endif
 endfunction
-
-" Close the quickfix window
-map <leader>cw :cclose<CR>
-"Open the quickfix window
-map <leader>co :copen<CR>
-"Clear the quickfix window
-map <leader>cc :call setqflist([])<CR>
 
 " Quick AES encryption/decryption
 command! Enc execute '%!openssl aes-256-cbc -salt'
@@ -684,21 +682,7 @@ vnoremap [ "zdi[<C-R>z]<ESC>
 vnoremap ' "zdi'<C-R>z'<ESC>
 vnoremap " "zdi"<C-R>z"<ESC>
 
-" Ctrl-P Plugin
-let g:ctrlp_map = '<leader>o'
-
-let g:ctrlp_match_window_bottom = 0
-let g:ctrlp_match_window_reversed = 0
-
-let g:ctrlp_custom_ignore = '\v\~$|\.(o|swp|pyc|wav|mp3|ogg|blend)$|(^|[/\\])\.(hg|git|bzr)($|[/\\])|__init__\.py'
-let g:ctrlp_working_path_mode = 0
-
-let g:ctrlp_dotfiles = 0
-let g:ctrlp_switch_buffer = 0
-
-" Search by tag - massively useful
-map <leader>. :CtrlPTag<CR>
-
+" vimwiki
 let g:vimwiki_list = [{'path': '~/work/personal/vimwiki/', 'path_html': '~/work/personal/vimwiki/html'}]
 
 " Easy Motion: Search for character
@@ -711,11 +695,9 @@ nmap S <Plug>(easymotion-s2)
 " Gundo: Toggle undo history pane.
 nmap <leader>u :GundoToggle<CR>
 
-" NERDTree (often requires a redraw)
+" NERDTree 
 nnoremap <silent> <S-Tab> :NERDTreeToggle<CR>
 
-"nmap <leader>e :NERDTreeToggle<CR>:sleep 100m<CR>:redraw!<CR>
-"nmap <leader>f :NERDTreeFocus<CR>
 let NERDTreeShowBookmarks=1
 let NERDTreeShowHidden=1
 let NERDTreeIgnore=['\~$','\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
@@ -724,10 +706,11 @@ let NERDTreeIgnore=['\~$','\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
 autocmd MyAutoCmd BufEnter *
       \ if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-
+"NERDComment
+let NERDSpaceDelims=1
 
 " TagBar
-nmap <leader>b :TagbarToggle<CR>
+"nmap <leader>b :TagbarToggle<CR>
 
 " QFN (mnemonic: 'a' for annotate)
 map <leader>an :QFNAddQ<CR>
@@ -871,7 +854,7 @@ nnoremap <bar> :vsp<cr>
 
 " :: Remap to ,. After all the remapping, ; goes to command mode, . repeats
 " fFtT, : repeats it bacward, and , is the leader
-noremap : ,
+"noremap : ,
 
 nmap <c-e> [unite]f
 nnoremap <c-s><c-f> [unite]l
