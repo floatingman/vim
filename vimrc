@@ -46,9 +46,14 @@ NeoBundle 'Shougo/neomru.vim'
 NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'mileszs/ack.vim'
 
+"Text Objects
+NeoBundle 'terryma/vim-expand-region'
 "Snippets
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'SirVer/ultisnips'
+
+"Colorthemes
+NeoBundle 'nanotech/jellybeans.vim'
 
 "Comments
 NeoBundle 'scrooloose/nerdcommenter'
@@ -64,7 +69,11 @@ NeoBundle 'psykidellic/vim-jekyll'
 NeoBundle 'bling/vim-airline'
 
 " Misc
+NeoBundle 'kana/vim-submode'
+NeoBundle 'kana/vim-scratch'
 NeoBundle 'Raimondi/delimitMate'
+NeoBundle 'ton/vim-bufsurf'
+NeoBundle 'terryma/vim-smooth-scroll'
 
 " Load local plugins, nice for doing development
 execute 'NeoBundleLocal' '~/code/vim'
@@ -119,7 +128,7 @@ set autowriteall
 
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+" command W w !sudo tee % > /dev/null
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -210,51 +219,9 @@ set splitbelow
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set t_Co=256
 
-"set colorscheme based on $VIMCOLOR or use dusk by default
-if $VIMCOLOR == 'light'
-  set background=light
-  let g:solarized_termcolors=256
-  color solarized
-elseif $VIMCOLOR == 'dark'
-  set background=dark
-  let g:solarized_termcolors=256
-  color solarized
-elseif $VIMCOLOR == 'molokai'
-  let g:molokai_original=1
-  let g:rehash256=1
-  color molokai
-elseif $VIMCOLOR != ''
-  color $VIMCOLOR
-else
-  color dusk
-endif
-
-
-if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-  set t_Co=256
-endif
-
-if has("mac") || has("macunix")
-  set gfn=Menlo:h15
-elsif has("win16") || has("win32")
-set gfn=Bitstream\ Vera\ Sans\ Mono:h11
-elsif has("linux")
-set gfn=Monospace\ 11
-endif
-
-
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-  set guioptions-=T
-  set guioptions-=e
-  set guitablabel=%M\ %t
-endif
+colorscheme jellybeans
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf-8
@@ -539,10 +506,75 @@ nmap <c-_> [unite]l
 nmap <C-@> <Plug>(scratch-open)
 nmap <C-Space> <C-@>
 
+
+"===============================================================================
+" Insert Mode Ctrl Key Mappings
+"===============================================================================
+
+" Ctrl-w: Delete previous word, create undo point
+inoremap <c-w> <c-g>u<c-w>
+" Ctrl-e: Go to end of line
+inoremap <c-e> <esc>A
+
+" Ctrl-u: Delete til beginning of line, create undo point
+inoremap <c-u> <c-g>u<c-u>
+
+" Ctrl-a: Go to begin of line
+inoremap <c-a> <esc>I
+" Ctrl-s: Save
+inoremap <c-s> <esc>:w<CR>
+
+
+" Ctrl-f: Move cursor left
+inoremap <c-f> <Left>
+" Ctrl-g: Move cursor right
+" Surround.vim maps these things that I don't use
+augroup MyAutoCmd
+  autocmd VimEnter * silent! iunmap <C-G>s
+  autocmd VimEnter * silent! iunmap <C-G>S
+  autocmd BufEnter * silent! iunmap <buffer> <C-G>g
+augroup END
+inoremap <c-g> <Right>
+" Ctrl-h: Move word left
+inoremap <c-h> <c-o>b
+" Ctrl-j: Move cursor up
+inoremap <expr> <c-j> pumvisible() ? "\<C-e>\<Down>" : "\<Down>"
+" Ctrl-k: Move cursor up
+inoremap <expr> <c-k> pumvisible() ? "\<C-e>\<Up>" : "\<Up>"
+" Ctrl-l: Move word right
+inoremap <c-l> <c-o>w
+
+" Ctrl-c: Inserts line below
+inoremap <c-c> <c-o>o
+
+" Ctrl-v: Paste. For some reason, <c-o> is not creating an undo point in the
+" mapping
+inoremap <c-v> <c-g>u<c-o>gP
+
+" Ctrl-/: Undo
+inoremap <c-_> <c-o>u
+
+"===============================================================================
+" Visual Mode Ctrl Key Mappings
+"===============================================================================
+" Ctrl-c: Copy (works with system clipboard due to clipboard setting)
+vnoremap <c-c> y`]
+" Ctrl-r: Easier search and replace
+vnoremap <c-r> "hy:%s/<c-r>h//gc<left><left><left>
+" Ctrl-s: Easier substitue
+vnoremap <c-s> :s/\%V//g<left><left><left>
+" Ctrl-f: Find with MultipleCursors
+vnoremap <c-f> :MultipleCursorsFind
+"===============================================================================
+" Normal Mode Meta Key Mappings
+"===============================================================================
+" Alt-a: Select all
+nnoremap <silent> a :keepjumps normal ggVG<CR>
+" Alt-h: Go to previous buffer
+nnoremap <silent> h :bprevious<CR> 
 "===============================================================================
 " Normal Mode Key Mappings
 "===============================================================================
-" p: Paste
 nnoremap p gp
 
 " \: Toggle comment
@@ -558,7 +590,9 @@ nnoremap <Plug>OriginalSemicolon ;
 " ;: Command mode
 noremap ; :
 
-" c: Change into the blackhole register to not clobber the last yank
+"Ctrl-/: Undo
+inoremap <c-_> <c-o>u
+
 nnoremap c "_c
 
 " n: Next, keep search matches in the middle of the window
@@ -577,6 +611,52 @@ nnoremap <silent> <cr> :call CursorPing()<CR>
 nnoremap <bs> :set hlsearch! hlsearch?<cr>
 " Tab: Go to matching element
 nnoremap <Tab> %
+
+
+"===============================================================================
+" Space Key Mappings
+"===============================================================================
+" Space is also the leader key for Unite actions
+" Space-[jk] scrolls the page
+call submode#enter_with('scroll', 'n', '', '<space>j', ':call smooth_scroll#down(&scroll/2, 5, 1)<CR>')
+call submode#enter_with('scroll', 'n', '', '<space>k', ':call smooth_scroll#up(&scroll/2, 5, 1)<CR>')
+call submode#map('scroll', 'n', '', 'j', ':call smooth_scroll#down(&scroll/2, 5, 1)<CR>')
+call submode#map('scroll', 'n', '', 'k', ':call smooth_scroll#up(&scroll/2, 5, 1)<CR>')
+" Don't leave submode automatically
+let g:submode_timeout = 0
+" Space-=: Resize windows
+nnoremap <space>= <c-w>=
+
+"===============================================================================
+" Visual Mode Key Mappings
+"===============================================================================
+" y: Yank and go to end of selection
+xnoremap y y`]
+" p: Paste in visual mode should not replace the default register with the
+" deleted text
+xnoremap p "_dP
+" d: Delete into the blackhole register to not clobber the last yank. To 'cut',
+" use 'x' instead
+xnoremap d "_d
+" \: Toggle comment
+xmap \ <Leader>c<space>
+" Enter: Highlight visual selections
+xnoremap <silent> <CR> y:let @/ = @"<cr>:set hlsearch<cr>
+" Backspace: Delete selected and go into insert mode
+xnoremap <bs> c
+" Space: QuickRun
+xnoremap <space> :QuickRun<CR>
+" <|>: Reselect visual block after indent
+xnoremap < <gv
+xnoremap > >gv
+" .: repeats the last command on every line
+xnoremap . :normal.<cr>
+" @: repeats macro on every line
+xnoremap @ :normal@
+" Tab: Indent
+xmap <Tab> >
+" shift-tab: unindent
+xmap <s-tab> <
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -917,8 +997,6 @@ autocmd MyAutoCmd BufEnter *
 "NERDComment
 let NERDSpaceDelims=1
 
-" I don't even know how to use Ex mode.
-nnoremap Q <nop>
 " Toggle on diff mode for the current buffer.
 function! DiffToggle()
   if &diff
