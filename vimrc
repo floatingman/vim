@@ -126,18 +126,18 @@ set autoread
 " set autowriteall" Set to auto write file
 set autowriteall
 
-" :W sudo saves the file 
+" w!! sudo saves the file 
 " (useful for handling the permission-denied error)
-" command W w !sudo tee % > /dev/null
+cnoremap w!! w !sudo tee % > /dev/null
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Jump 5 lines when running out of the screen
-set scrolljump=5
+" Jump 3 lines when running out of the screen
+set scrolljump=3
 
-" Set 3 lines to the cursor - when moving vertically using j/k
-set scrolloff=3
+" Set 10 lines to the cursor - when moving vertically using j/k
+set scrolloff=10
 
 " Lower the time that Vim waits to look for matching keymaps (ms)
 set timeoutlen=400
@@ -579,9 +579,9 @@ nnoremap <silent> J mzyyp`zj
 " Alt-Shift-k: Duplicate line up
 nnoremap <silent> K mzyyp`z
 " Alt-o: Jump back in the changelist
-nnoremap o g;
+"nnoremap o g;
 " Alt-i: Jump forward in the changelist
-nnoremap i g,
+"nnoremap i g,
 
 "===============================================================================
 " Normal Mode Key Mappings
@@ -687,29 +687,6 @@ set viminfo^=%
 " Always show the status line
 set laststatus=2
 
-" Format the status line
-" let &stl=""
-" if exists('*StatuslineColor')
-  " let &stl.="%{StatuslineColor()}"
-" else
-  " hi StatusLine ctermfg=237 ctermbg=250
-  " hi User1 ctermfg=015 ctermbg=237
-  " hi User2 ctermfg=232 ctermbg=237
-  " hi User3 ctermfg=184 ctermbg=237
-  " hi User4 ctermfg=184 ctermbg=237
-  " hi User5 ctermfg=184 ctermbg=237
-" endif
-" let &stl.="%1*%f"												" filename
-" let &stl.="%="													" everything after this is right-aligned
-" let &stl.="%3*%{&modified?'[+]\ ':''}"	" modified flag
-" let &stl.="%4*%{&readonly?'[R]\ ':''}"	" read-only flag
-" let &stl.="%5*%{&paste?'[P]\ ':''}"			" paste mode
-" let &stl.="%<"													" truncate here if we run out of space
-" let &stl.="%2*\|\ %1*\%{&ff}\ %2*\|"		" file format
-" let &stl.="%1*\ %{strlen(&fenc)?&fenc:'none'}\ %2*\|" " file encoding
-" let &stl.="%1*\ %{tolower(&ft)}\ %2*\|"	" filetype, lowercase without surrounding square brackets
-" let &stl.="%1*\ %l,%c\ %2*\|"						" line, col position
-" let &stl.="%1*\ %p%%"										" total lines, % of file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
