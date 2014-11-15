@@ -113,6 +113,10 @@ set history=10000
 " set to reload file if changed outside of vim
 set autoread
 
+" Set to auto write file
+" set autowriteall" Set to auto write file
+set autowriteall
+
 " :W sudo saves the file 
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
@@ -285,9 +289,10 @@ set nowrap
 set whichwrap+=h,l,<,>,[,]
 
 
-" Don't show linenumbers by default
-set nonumber
-
+" show linenumbers by default
+set number
+" Min width of the number column to the left
+set numberwidth=1
 
 """"""""""""""""""""""""""""""
 " => Visual mode related
@@ -297,6 +302,19 @@ set nonumber
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
 
+
+"===============================================================================
+" Function Key Maps
+"===============================================================================
+
+"<F2>: Help
+nmap <F1> [unite]h
+
+"<F3>: Gundo
+nnoremap <F3> :<C-u>GundoToggle<CR>
+
+" <F4>: Save session
+nnoremap <F4> :<C-u>UniteSessionSave
 
 "===============================================================================
 "Leader key bindings
@@ -363,7 +381,9 @@ noremap <leader>r :redraw!<CR>
 noremap <leader>l :set list!<CR>
 
 " Toggle line numbers
-noremap <leader>n :set number!<CR>
+"noremap <leader>n :set number!<CR>
+" <Leader>n: NERDTreeFind
+nnoremap <silent> <Leader>n :NERDTreeFind<cr> :wincmd p<cr>
 
 map <leader>h :call ToggleHex()<CR>
 
@@ -413,6 +433,150 @@ nnoremap <silent> <Leader>f :botright copen<CR>
 " Shift-Tab: NERDTree
 nnoremap <silent> <S-Tab> :NERDTreeToggle<CR>
 
+"Q closes windows
+nnoremap Q :q<cr>
+
+"W: Save
+nnoremap W :w<cr>
+
+"redo
+nnoremap U :redo<cr>
+
+"H: Go to beginning of line
+noremap H ^
+
+"REINDENT file
+nnoremap R mqHmwgg=G`wzt`q
+
+" Quick horizontal splits
+nnoremap _ :sp<cr>
+
+" Quick vertical splits
+nnoremap <bar> :vsp<cr>
+
+" H: Go to beginning of line.
+noremap H ^
+
+" J: expand-region
+map K <Plug>(expand_region_expand)
+
+" K: shrink-region
+map J <Plug>(expand_region_shrink)
+
+noremap L g_
+
+" :: Remap to ,. After all the remapping, ; goes to command mode, . repeats
+" fFtT, : repeats it backward, and , is the leader
+noremap : ,
+
+" Z: Bufsurf back
+nnoremap <silent> Z :BufSurfBack<CR>
+
+" X: Bufsurf forward
+nnoremap <silent> X :BufSurfForward<CR>
+
+" N: Find next occurrence backward
+nnoremap N Nzzzv
+
+" +/-: Increment number
+nnoremap + <c-a>
+nnoremap - <c-x>
+
+"===============================================================================
+" Normal Mode Ctrl Key Mappings
+"===============================================================================
+" Ctrl-e: Find (e)verything
+nmap <c-e> [unite]f
+
+" Ctrl-r: Command history using Unite, this matches my muscle memory in zsh
+silent! nunmap <c-r>
+nmap <c-r> [unite];
+
+" Ctrl-y: Yanks
+nmap <c-y> [unite]y
+
+" Ctrl-u: Scroll half a screen up smoothly
+noremap <silent> <c-u> :call smooth_scroll#up(&scroll, 5, 1)<CR>
+
+" Ctrl-p: Find MRU and buffers
+nmap <c-p> [unite]u
+
+" Ctrl-\: Quick outline
+nmap <silent> <c-\> [unite]o
+
+" Ctrl-a*: Dispatch related
+nnoremap <c-a><c-a> :Dispatch<CR>
+nnoremap <c-a><c-d> :Dispatch
+" Ctrl-sa: Reopen last grep window
+nnoremap <c-s><c-a> :UniteResume -buffer-name=grep<CR>
+" Ctrl-ss: (S)earch word under cur(s)or in current directory
+nnoremap <c-s><c-s> :Unite -buffer-name=grep grep:.::<C-r><C-w><CR>
+" Ctrl-sd: (S)earch word in current (d)irectory (prompt for word)
+nnoremap <c-s><c-d> :Unite -buffer-name=grep grep:.<CR>
+" Ctrl-sf: Quickly (s)earch in (f)ile
+nmap <c-s><c-f> [unite]l
+" Ctrl-sr: Easier (s)earch and (r)eplace
+nnoremap <c-s><c-r> :%s/<c-r><c-w>//gc<left><left><left>
+" Ctrl-sw: Quickly surround word
+nmap <c-s><c-w> ysiw
+" Ctrl-d: Scroll half a screen down smoothly
+noremap <silent> <c-d> :call smooth_scroll#down(&scroll, 5, 1)<CR>
+
+" Ctrl-x: Cycle through the splits. I don't ever use enough splits to justify
+" wasting 4 very easy to hit keys for them.
+nnoremap <c-x> <c-w>w
+
+" Ctrl-c: (C)hange (c)urrent directory
+nmap <c-c> [unite]d
+" Ctrl-v: Paste (works with system clipboard due to clipboard setting earlier)
+nnoremap <c-v> p
+" Ctrl-b: Go (b)ack. Go to previously buffer
+nnoremap <c-b> <c-^>
+
+" Ctrl-/: A more powerful '/'
+nmap <c-_> [unite]l
+" Ctrl-Space: Quick scratch buffer
+nmap <C-@> <Plug>(scratch-open)
+nmap <C-Space> <C-@>
+
+"===============================================================================
+" Normal Mode Key Mappings
+"===============================================================================
+" p: Paste
+nnoremap p gp
+
+" \: Toggle comment
+nmap \ <Leader>c<space>
+
+" d: Delete into the blackhole register to not clobber the last yank
+nnoremap d "_d
+" dd: I use this often to yank a single line, retain its original behavior
+nnoremap dd dd
+" f: Find. Also support repeating with .
+nnoremap <Plug>OriginalSemicolon ;
+
+" ;: Command mode
+noremap ; :
+
+" c: Change into the blackhole register to not clobber the last yank
+nnoremap c "_c
+
+" n: Next, keep search matches in the middle of the window
+nnoremap n nzzzv
+
+" Up Down Left Right resize splits
+nnoremap <up> <c-w>+
+nnoremap <down> <c-w>-
+nnoremap <left> <c-w><
+nnoremap <right> <c-w>>
+
+" Enter: Highlight cursor location
+nnoremap <silent> <cr> :call CursorPing()<CR>
+
+" Backspace: Toggle search highlight
+nnoremap <bs> :set hlsearch! hlsearch?<cr>
+" Tab: Go to matching element
+nnoremap <Tab> %
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
@@ -509,9 +673,9 @@ endif
 let &colorcolumn="80,".join(range(120,999), ",")
 
 " Highlight trailing whitespace
-if hlexists("TrailingWhitespace")
-  match TrailingWhitespace /\s\+$/
-endif
+"if hlexists("TrailingWhitespace")
+"  match TrailingWhitespace /\s\+$/
+"endif
 
 " Visually indicate when I'm over 80-cols on line length, at add the ability
 " to turn it on/off. Show text with a dark-red background, but show regular
@@ -623,7 +787,19 @@ autocmd BufNewFile,BufRead *.coffee	setlocal list number
 
 " List characters use a less-noisy pipe to show tabs, instead of ^I
 " Don't bother showing EOL characters either.
-set listchars=tab:\|.,trail:.,extends:>,precedes:<,eol:\
+"set listchars=tab:\|.,trail:.,extends:>,precedes:<,eol:\
+set listchars=tab:▸\ ,extends:❯,precedes:❮,nbsp:␣
+set showbreak=↪
+" listchar=trail is not as flexible, use the below to highlight trailing
+" " whitespace. Don't do it for unite windows or readonly files
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+augroup MyAutoCmd
+  autocmd BufWinEnter * if &modifiable && &ft!='unite' | match ExtraWhitespace /\s\+$/ | endif
+  autocmd InsertEnter * if &modifiable && &ft!='unite' | match ExtraWhitespace /\s\+\%#\@<!$/ | endif
+  autocmd InsertLeave * if &modifiable && &ft!='unite' | match ExtraWhitespace /\s\+$/ | endif
+  autocmd BufWinLeave * if &modifiable && &ft!='unite' | call clearmatches() | endif
+augroup END
 
 " When using tab completion for filenames, only complete as far
 " as the match goes
@@ -835,34 +1011,26 @@ endif
 " https://github.com/c9s/perlomni.vim
 let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 
+" Writes to the unnamed register also writes to the * and + registers. This
+" makes it easy to interact with the system clipboard
+if has ('unnamedplus')
+  set clipboard=unnamedplus
+else
+  set clipboard=unnamed
+endif
+" Spelling highlights. Use underline in term to prevent cursorline highlights
+" from interfering
+if !has("gui_running")
+  hi clear SpellBad
+  hi SpellBad cterm=underline ctermfg=red
+  hi clear SpellCap
+  hi SpellCap cterm=underline ctermfg=blue
+  hi clear SpellLocal
+  hi SpellLocal cterm=underline ctermfg=blue
+  hi clear SpellRare
+  hi SpellRare cterm=underline ctermfg=blue
+endif
 
-"F Key mappings
-nmap <F1> [unite]h
-
-"<F3>: Gundo
-nnoremap <F3> :<C-u>GundoToggle<CR>
-
-"Shift key mappings
-"Q closes windows
-nnoremap Q :q<cr>
-
-"W: Save
-nnoremap W :w<cr>
-
-"redo
-nnoremap U :redo<cr>
-
-"H: Go to beginning of line
-noremap H ^
-
-"REINDENT file
-nnoremap R mqHmwgg=G`wzt`q
-
-" Quick horizontal splits
-nnoremap _ :sp<cr>
-
-" Quick vertical splits
-nnoremap <bar> :vsp<cr>
 
 " :: Remap to ,. After all the remapping, ; goes to command mode, . repeats
 " fFtT, : repeats it bacward, and , is the leader
@@ -880,24 +1048,24 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 " call unite#filters#sorter_default#use(['sorter_rank'])
 " Set up some custom ignores
 call unite#custom_source('file_rec,file_rec/async,file_mru,file,buffer,grep',
-\ 'ignore_pattern', join([
-\ '\.git/',
-\ 'git5/.*/review/',
-\ 'google/obj/',
-\ 'tmp/',
-\ '.sass-cache',
-\ 'node_modules/',
-\ 'bower_components/',
-\ 'dist/',
-\ '.git5_specs/',
-\ '.pyc',
-\ ], '\|'))
+      \ 'ignore_pattern', join([
+      \ '\.git/',
+      \ 'git5/.*/review/',
+      \ 'google/obj/',
+      \ 'tmp/',
+      \ '.sass-cache',
+      \ 'node_modules/',
+      \ 'bower_components/',
+      \ 'dist/',
+      \ '.git5_specs/',
+      \ '.pyc',
+      \ ], '\|'))
 " Map space to the prefix for Unite
 nnoremap [unite] <Nop>
 nmap <space> [unite]
 " General fuzzy search
 nnoremap <silent> [unite]<space> :<C-u>Unite
-\ -buffer-name=files buffer file_mru bookmark file_rec/async<CR>
+      \ -buffer-name=files buffer file_mru bookmark file_rec/async<CR>
 " Quick registers
 nnoremap <silent> [unite]r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> [unite]u :<C-u>Unite -buffer-name=buffers file_mru buffer<CR>
@@ -914,7 +1082,7 @@ nnoremap <silent> [unite]a :<C-u>Unite -buffer-name=sources source<CR>
 nnoremap <silent> [unite]s :<C-u>Unite -buffer-name=snippets snippet<CR>
 " Quickly switch lcd
 nnoremap <silent> [unite]d
-\ :<C-u>Unite -buffer-name=change-cwd -default-action=cd directory_mru directory_rec/async<CR>
+      \ :<C-u>Unite -buffer-name=change-cwd -default-action=cd directory_mru directory_rec/async<CR>
 " Quick file search
 nnoremap <silent> [unite]f :<C-u>Unite -buffer-name=files file_rec/async file/new<CR>
 " Quick grep from cwd
