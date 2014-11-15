@@ -572,6 +572,17 @@ vnoremap <c-f> :MultipleCursorsFind
 nnoremap <silent> a :keepjumps normal ggVG<CR>
 " Alt-h: Go to previous buffer
 nnoremap <silent> h :bprevious<CR> 
+" Alt-l: Go to next buffer
+nnoremap <silent> l :bnext<CR>
+" Alt-Shift-j: Duplicate line down
+nnoremap <silent> J mzyyp`zj
+" Alt-Shift-k: Duplicate line up
+nnoremap <silent> K mzyyp`z
+" Alt-o: Jump back in the changelist
+nnoremap o g;
+" Alt-i: Jump forward in the changelist
+nnoremap i g,
+
 "===============================================================================
 " Normal Mode Key Mappings
 "===============================================================================
@@ -661,16 +672,6 @@ xmap <s-tab> <
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Treat long lines as break lines (useful when moving around in them)
-map j gj
-map k gk
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -687,28 +688,28 @@ set viminfo^=%
 set laststatus=2
 
 " Format the status line
-let &stl=""
-if exists('*StatuslineColor')
-  let &stl.="%{StatuslineColor()}"
-else
-  hi StatusLine ctermfg=237 ctermbg=250
-  hi User1 ctermfg=015 ctermbg=237
-  hi User2 ctermfg=232 ctermbg=237
-  hi User3 ctermfg=184 ctermbg=237
-  hi User4 ctermfg=184 ctermbg=237
-  hi User5 ctermfg=184 ctermbg=237
-endif
-let &stl.="%1*%f"												" filename
-let &stl.="%="													" everything after this is right-aligned
-let &stl.="%3*%{&modified?'[+]\ ':''}"	" modified flag
-let &stl.="%4*%{&readonly?'[R]\ ':''}"	" read-only flag
-let &stl.="%5*%{&paste?'[P]\ ':''}"			" paste mode
-let &stl.="%<"													" truncate here if we run out of space
-let &stl.="%2*\|\ %1*\%{&ff}\ %2*\|"		" file format
-let &stl.="%1*\ %{strlen(&fenc)?&fenc:'none'}\ %2*\|" " file encoding
-let &stl.="%1*\ %{tolower(&ft)}\ %2*\|"	" filetype, lowercase without surrounding square brackets
-let &stl.="%1*\ %l,%c\ %2*\|"						" line, col position
-let &stl.="%1*\ %p%%"										" total lines, % of file
+" let &stl=""
+" if exists('*StatuslineColor')
+  " let &stl.="%{StatuslineColor()}"
+" else
+  " hi StatusLine ctermfg=237 ctermbg=250
+  " hi User1 ctermfg=015 ctermbg=237
+  " hi User2 ctermfg=232 ctermbg=237
+  " hi User3 ctermfg=184 ctermbg=237
+  " hi User4 ctermfg=184 ctermbg=237
+  " hi User5 ctermfg=184 ctermbg=237
+" endif
+" let &stl.="%1*%f"												" filename
+" let &stl.="%="													" everything after this is right-aligned
+" let &stl.="%3*%{&modified?'[+]\ ':''}"	" modified flag
+" let &stl.="%4*%{&readonly?'[R]\ ':''}"	" read-only flag
+" let &stl.="%5*%{&paste?'[P]\ ':''}"			" paste mode
+" let &stl.="%<"													" truncate here if we run out of space
+" let &stl.="%2*\|\ %1*\%{&ff}\ %2*\|"		" file format
+" let &stl.="%1*\ %{strlen(&fenc)?&fenc:'none'}\ %2*\|" " file encoding
+" let &stl.="%1*\ %{tolower(&ft)}\ %2*\|"	" filetype, lowercase without surrounding square brackets
+" let &stl.="%1*\ %l,%c\ %2*\|"						" line, col position
+" let &stl.="%1*\ %p%%"										" total lines, % of file
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1298,3 +1299,36 @@ autocmd MyAutoCmd FileType qf nnoremap <silent> <buffer> q :q<CR>
 "===============================================================================
 autocmd MyAutoCmd FileType vim let b:delimitMate_quotes = "'"
 let delimitMate_expand_cr = 1
+
+"===============================================================================
+" UltiSnips
+"===============================================================================
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+" Make UltiSnips works nicely with YCM
+function! g:UltiSnips_Complete()
+  call UltiSnips#ExpandSnippet()
+  if g:ulti_expand_res == 0
+    if pumvisible()
+      return "\<C-n>"
+    else
+      call UltiSnips#JumpForwards()
+      if g:ulti_jump_forwards_res == 0
+        return "\<TAB>"
+      endif
+    endif
+  endif
+  return ""
+endfunction
+au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+"===============================================================================
+" Jekyll
+"===============================================================================
+let g:jekyll_post_extension = '.md'
+"===============================================================================
+" Airline
+"===============================================================================
+let g:airline_powerline_fonts = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t'
