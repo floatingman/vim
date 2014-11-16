@@ -27,15 +27,11 @@ NeoBundle 'Shougo/vimproc.vim', {
       \ }
 NeoBundle 'jlanzarotta/bufexplorer'
 NeoBundle 'vim-scripts/Gundo'
-NeoBundle 'scrooloose/nerdtree'
-NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'majutsushi/tagbar'
-NeoBundle 'vim-scripts/vim-coffee-script'
 NeoBundle 'vimwiki/vimwiki'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neocomplcache.vim'
 NeoBundle 'c9s/perlomni.vim'
-NeoBundle 'Shougo/vimshell.vim'
 
 "Unite bundles
 NeoBundle 'Shougo/unite.vim'
@@ -62,8 +58,30 @@ NeoBundle 'scrooloose/nerdcommenter'
 NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'tpope/vim-fugitive'
 
-"Web Dev
+"file browsing
+NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'Shougo/vimfiler'
+
+" Shell
+NeoBundle 'thinca/vim-quickrun'
+NeoBundle 'Shougo/vimshell'
+NeoBundle 'tpope/vim-dispatch'
+
+"FileTypes
+NeoBundle 'amirh/HTML-AutoCloseTag'
+NeoBundle 'tpope/vim-markdown'
+NeoBundle 'terryma/vim-instant-markdown'
+NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'tpope/vim-rails'
 NeoBundle 'psykidellic/vim-jekyll'
+NeoBundle 'kchmck/vim-coffee-script'
+NeoBundle 'Chie192/vim-autoformat'
+NeoBundle 'vim-scripts/indenthtml.vim'
+NeoBundle 'pangloss/vim-javascript'
+
+" Motions
+NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'goldfeld/vim-seek'
 
 " Status line
 NeoBundle 'bling/vim-airline'
@@ -201,7 +219,7 @@ set tm=500
 
 " Folding
 set foldmethod=indent
-
+set foldlevelstart=99
 "Don't fold anything by default - I'll close the folds myself
 set foldlevel=99
 
@@ -222,6 +240,12 @@ set splitbelow
 set t_Co=256
 
 colorscheme jellybeans
+
+"Tell vim to use dark background
+set background=dark
+
+" No need to show mode
+set noshowmode
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf-8
@@ -387,6 +411,11 @@ nnoremap <silent> <Leader>1 :set paste!<cr>
 
 "leader 2:  Toggle Tagbar
 nnoremap <silent> <Leader>2 :TagbarToggle<cr>
+
+"<Leader>0: Runt eh visually selected code in python and replace it with
+"the output
+vnoremap <silent> <Leader>0 :!python<cr>
+
 
 "<Leader>q: Quit all, useful in vimdiff
 nnoremap <Leader>q :qa<cr>
