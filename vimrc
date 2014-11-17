@@ -27,7 +27,6 @@ NeoBundle 'Shougo/vimproc.vim', {
       \ }
 NeoBundle 'jlanzarotta/bufexplorer'
 NeoBundle 'vim-scripts/Gundo'
-NeoBundle 'majutsushi/tagbar'
 NeoBundle 'vimwiki/vimwiki'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neocomplcache.vim'
@@ -75,7 +74,7 @@ NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'psykidellic/vim-jekyll'
 NeoBundle 'kchmck/vim-coffee-script'
-NeoBundle 'Chie192/vim-autoformat'
+NeoBundle 'Chiel92/vim-autoformat'
 NeoBundle 'vim-scripts/indenthtml.vim'
 NeoBundle 'pangloss/vim-javascript'
 
@@ -85,6 +84,11 @@ NeoBundle 'goldfeld/vim-seek'
 
 " Status line
 NeoBundle 'bling/vim-airline'
+
+" Tags
+NeoBundle 'xolox/vim-misc'
+NeoBundle 'xolox/vim-easytags'
+NeoBundle 'majutsushi/tagbar'
 
 " Misc
 NeoBundle 'kana/vim-submode'
