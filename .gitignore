@@ -2,3 +2,5 @@ tmp/
 cache/
 bundle/
 sessions
+.VimballRecord
+.netrwhist
