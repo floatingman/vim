@@ -1,4 +1,3 @@
-
 " disable vi-compatibility
 set nocompatible
 
@@ -109,7 +108,6 @@ NeoBundle 'mattn/gist-vim'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'nathanaelkane/vim-indent-guides'
 NeoBundle 'vimwiki/vimwiki'
-
 
 " Load local plugins, nice for doing development
 execute 'NeoBundleLocal' '~/code/vim'
@@ -251,7 +249,6 @@ set foldcolumn=0
 set splitright
 set splitbelow
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -289,14 +286,12 @@ set tabstop=8
 set softtabstop=2
 set smarttab
 
-
 " Text display settings 
 set linebreak
 set textwidth=80
 set autoindent
 set nowrap
 set whichwrap+=h,l,<,>,[,]
-
 
 " show linenumbers by default
 set number
@@ -310,7 +305,6 @@ set numberwidth=1
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :call VisualSelection('f', '')<CR>
 vnoremap <silent> # :call VisualSelection('b', '')<CR>
-
 
 "===============================================================================
 " Function Key Maps
@@ -433,7 +427,6 @@ nnoremap <silent> <Leader>2 :TagbarToggle<cr>
 "<Leader>0: Runt eh visually selected code in python and replace it with
 "the output
 vnoremap <silent> <Leader>0 :!python<cr>
-
 
 "<Leader>q: Quit all, useful in vimdiff
 nnoremap <Leader>q :qa<cr>
@@ -571,7 +564,6 @@ inoremap <c-a> <esc>I
 " Ctrl-s: Save
 inoremap <c-s> <esc>:w<CR>
 
-
 " Ctrl-f: Move cursor left
 inoremap <c-f> <Left>
 " Ctrl-g: Move cursor right
@@ -669,7 +661,6 @@ nnoremap <silent> <cr> :call CursorPing()<CR>
 nnoremap <bs> :set hlsearch! hlsearch?<cr>
 " Tab: Go to matching element
 nnoremap <Tab> %
-
 
 "===============================================================================
 " Space Key Mappings
@@ -799,7 +790,6 @@ if hlexists("OverLength")
 else
   map <leader>k :echo "No 'OverLength' highlight group in color settings."<CR>
 endif
-
 
 autocmd MyAutoCmd BufWritePost .vimrc,_vimrc,vimrc,.gvimrc,_gvimrc,gvimrc
       \ so $MYVIMRC | if has('gui_running') | so $MYGVIMRC | endif
@@ -1134,7 +1124,6 @@ if !has("gui_running")
   hi SpellRare cterm=underline ctermfg=blue
 endif
 
-
 " :: Remap to ,. After all the remapping, ; goes to command mode, . repeats
 " fFtT, : repeats it bacward, and , is the leader
 "noremap : ,
@@ -1280,7 +1269,6 @@ elseif executable('ack')
 endif
 let g:unite_source_rec_max_cache_files = 99999
 
-
 "===============================================================================
 " Unite Sessions
 "===============================================================================
@@ -1346,10 +1334,12 @@ function! g:UltiSnips_Complete()
   return ""
 endfunction
 au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
+
 "===============================================================================
 " Jekyll
 "===============================================================================
 let g:jekyll_post_extension = '.md'
+
 "===============================================================================
 " Airline
 "===============================================================================
