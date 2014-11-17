@@ -25,9 +25,6 @@ NeoBundle 'Shougo/vimproc.vim', {
       \		'unix' : 'gmake',
       \		},
       \ }
-NeoBundle 'jlanzarotta/bufexplorer'
-NeoBundle 'vim-scripts/Gundo'
-NeoBundle 'vimwiki/vimwiki'
 NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neocomplcache.vim'
 NeoBundle 'c9s/perlomni.vim'
@@ -42,7 +39,15 @@ NeoBundle 'thinca/vim-unite-history'
 NeoBundle 'mileszs/ack.vim'
 
 "Text Objects
+NeoBundle 'tpope/vim-surround'
 NeoBundle 'terryma/vim-expand-region'
+NeoBundle 'kana/vim-textobj-user'
+NeoBundle 'kana/vim-textobj-entire' " ae, ie
+NeoBundle 'kana/vim-textobj-lastpat' " a/, i/, a?, i?
+NeoBundle 'kana/vim-textobj-line' " al, il
+NeoBundle 'kana/vim-textobj-indent' " ai, ii, aI, iI
+NeoBundle 'lucapette/vim-textobj-underscore' " a_, i_
+
 "Snippets
 NeoBundle 'honza/vim-snippets'
 NeoBundle 'SirVer/ultisnips'
@@ -96,6 +101,15 @@ NeoBundle 'kana/vim-scratch'
 NeoBundle 'Raimondi/delimitMate'
 NeoBundle 'ton/vim-bufsurf'
 NeoBundle 'terryma/vim-smooth-scroll'
+NeoBundle 'sjl/gundo.vim'
+NeoBundle 'vim-scripts/BufOnly.vim'
+NeoBundle 't9md/vim-quickhl'
+NeoBundle 'mattn/webapi-vim'
+NeoBundle 'mattn/gist-vim'
+NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'vimwiki/vimwiki'
+
 
 " Load local plugins, nice for doing development
 execute 'NeoBundleLocal' '~/code/vim'
