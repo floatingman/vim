@@ -608,15 +608,15 @@ vnoremap <c-f> :MultipleCursorsFind
 " Normal Mode Meta Key Mappings
 "===============================================================================
 " Alt-a: Select all
-nnoremap <silent> a :keepjumps normal ggVG<CR>
+" nnoremap <silent> a :keepjumps normal ggVG<CR>
 " Alt-h: Go to previous buffer
-nnoremap <silent> h :bprevious<CR> 
+" nnoremap <silent> h :bprevious<CR> 
 " Alt-l: Go to next buffer
-nnoremap <silent> l :bnext<CR>
+" nnoremap <silent> l :bnext<CR>
 " Alt-Shift-j: Duplicate line down
-nnoremap <silent> J mzyyp`zj
+" nnoremap <silent> J mzyyp`zj
 " Alt-Shift-k: Duplicate line up
-nnoremap <silent> K mzyyp`z
+" nnoremap <silent> K mzyyp`z
 " Alt-o: Jump back in the changelist
 "nnoremap o g;
 " Alt-i: Jump forward in the changelist
