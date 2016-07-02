@@ -25,7 +25,6 @@ NeoBundle 'Shougo/vimproc.vim', {
       \		},
       \ }
 NeoBundle 'Shougo/neocomplete.vim'
-NeoBundle 'Shougo/neocomplcache.vim'
 NeoBundle 'c9s/perlomni.vim'
 
 "Unite bundles
