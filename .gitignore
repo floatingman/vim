@@ -5,3 +5,7 @@ tags
 sessions
 .VimballRecord
 .netrwhist
+merged
+repos
+rollbacks
+.dein
