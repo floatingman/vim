@@ -148,3 +148,53 @@ let g:netrw_liststyle=3
 autocmd BufWinEnter * highlight ColorColumn ctermbg=darkred
 set colorcolumn=80
 " }}}
+
+" Plugins {{{
+
+" }}}
+
+" Mappings {{{
+" " Notes...
+" "
+" " :map     j gg (j will be mapped to gg)
+" " :map     Q j  (Q will also be mapped to gg, because j will be expanded ->
+" recursive mapping)
+" " :noremap W j  (W will be mapped to j not to gg, because j will not be
+" expanded -> non recursive)
+" "
+" " These mappings work in all modes. To have mappings work in only specific
+" " modes then denote the mapping with the mode character.
+" "
+" " e.g.
+" " to map something in just NORMAL mode use :nmap or :nnoremap
+" " to map something in just VISUAL mode use :vmap or :vnoremap
+
+
+" Clear search buffer
+:nnoremap § :nohlsearch<cr>
+
+" Command to use sudo when needed
+cmap w!! %!sudo tee > /dev/null %
+
+" File System Explorer (in horizontal split)
+map <leader>. :Sexplore<cr>
+
+" Buffers
+map <leader>yt :ls<cr>
+
+" Buffers (runs the delete buffer command on all open buffers)
+map <leader>yd :bufdo bd<cr>
+
+" Make handling vertical/linear Vim windows easier
+map <leader>w- <C-W>- " decrement height
+map <leader>w+ <C-W>+ " increment height
+map <leader>w] <C-W>_ " maximize height
+map <leader>w[ <C-W>= " equalize all windows
+
+" Handling horizontal Vim windows doesn't appear to be possible.
+" Attempting to map <C-W> < and > didn't work
+" Same with mapping <C-W>|
+
+" Make splitting Vim windows easier
+map <leader>; <C-W>s
+" }}}
