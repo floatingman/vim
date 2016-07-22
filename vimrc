@@ -11,7 +11,7 @@ endif
 set runtimepath^=~/.vim/repos/github.com/Shougo/dein.vim
 
 " Required:
-call dein#begin(expand('.'))
+call dein#begin(expand('~/.vim'))
 
 " Let dein manage dein
 " Required:
@@ -20,9 +20,18 @@ call dein#add('Shougo/dein.vim')
 " Add or remove your plugins here:
 call dein#add('Shougo/neosnippet.vim')
 call dein#add('Shougo/neosnippet-snippets')
-
+call dein#add('kien/rainbow_parentheses.vim')
+call dein#add('ctrlpvim/ctrlp.vim')
+call dein#add('ervandew/supertab')
+call dein#add('scrooloose/nerdtree')
+call dein#add('scrooloose/syntastic')
+call dein#add('vim-airline/vim-airline')
+call dein#add('tpope/vim-fugitive')
+call dein#add('airblade/vim-gitgutter')
+call dein#add('bkad/CamelCaseMotion')
+call dein#add('chriskempson/tomorrow-theme')
 " You can specify revision/branch/tag.
-call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
+" call dein#add('Shougo/vimshell', { 'rev': '3787e5' })
 
 " Required:
 call dein#end()
@@ -151,6 +160,57 @@ set colorcolumn=80
 
 " Plugins {{{
 
+" Theme
+  set background=light
+  colorscheme Tomorrow-Night
+
+ " CtrlP
+map <leader>t <C-p>
+map <leader>y :CtrlPBuffer<cr>
+let g:ctrlp_show_hidden=1
+let g:ctrlp_working_path_mode=0
+let g:ctrlp_max_height=30
+
+" CtrlP -> override <C-o> to provide options for how to open files
+let g:ctrlp_arg_map = 1
+
+" CtrlP -> files matched are ignored when expanding wildcards
+set wildignore+=*/.git/*,*/.hg/*,*/.svn/*.,*/.DS_Store
+
+" CtrlP -> use Ag for searching instead of VimScript
+" (might not work with ctrlp_show_hidden and ctrlp_custom_ignore)
+let g:ctrlp_user_command = 'ag %s -l --nocolor -g ""'
+
+" CtrlP -> directories to ignore when fuzzy finding
+let g:ctrlp_custom_ignore = '\v[\/]((node_modules)|\.(git|svn|grunt|sass-cache))$'
+
+" Ack (uses Ag behind the scenes)
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+" Airline (status line)
+let g:airline_powerline_fonts = 1
+
+" Gist authorisation settings
+let g:github_user = $GITHUB_USER
+let g:github_token = $GITHUB_TOKEN
+let g:gist_detect_filetype = 1
+let g:gist_open_browser_after_post = 1
+" Related plugins:
+" https://github.com/mattn/webapi-vim
+" https://github.com/vim-scripts/Gist.vim
+" https://github.com/tpope/vim-fugitive
+
+" HTML generation using 'emmet-vim'
+" NORMAL mode Ctrl+y then , <C-y,>
+
+" Git gutter
+let g:gitgutter_enabled = 1
+let g:gitgutter_eager = 0
+let g:gitgutter_sign_column_always = 1
+highlight clear SignColumn
+
+" Searching the file system
+map <leader>' :NERDTreeToggle<cr>
 " }}}
 
 " Mappings {{{
@@ -198,3 +258,94 @@ map <leader>w[ <C-W>= " equalize all windows
 " Make splitting Vim windows easier
 map <leader>; <C-W>s
 " }}}
+
+" Commands {{{
+" jump to last cursor
+autocmd BufReadPost *
+  \ if line("'\"") > 0 && line("'\"") <= line("$") |
+  \   exe "normal g`\"" |
+  \ endif
+
+fun! StripTrailingWhitespace()
+  " don't strip on these filetypes
+  if &ft =~ 'markdown'
+    return
+  endif
+  %s/\s\+$//e
+endfun
+autocmd BufWritePre * call StripTrailingWhitespace()
+
+" file formats
+autocmd Filetype gitcommit setlocal spell textwidth=72
+autocmd Filetype markdown setlocal wrap linebreak nolist textwidth=0 wrapmargin=0 " http://vim.wikia.com/wiki/Word_wrap_without_line_breaks
+autocmd FileType sh,cucumber,ruby,yaml,zsh,vim setlocal shiftwidth=2 tabstop=2 expandtab
+
+" specify syntax highlighting for specific files
+autocmd Bufread,BufNewFile *.spv set filetype=php
+autocmd Bufread,BufNewFile *.md set filetype=markdown " Vim interprets .md as 'modula2' otherwise, see :set filetype?
+
+" Highlight words to avoid in tech writing
+" http://css-tricks.com/words-avoid-educational-writing/
+highlight TechWordsToAvoid ctermbg=red ctermfg=white
+match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however\|so,\|easy/
+autocmd BufWinEnter * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
+autocmd InsertEnter * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
+autocmd InsertLeave * match TechWordsToAvoid /\cobviously\|basically\|simply\|of\scourse\|clearly\|just\|everyone\sknows\|however,\|so,\|easy/
+autocmd BufWinLeave * call clearmatches()
+
+" Create a 'scratch buffer' which is a temporary buffer Vim wont ask to save
+" http://vim.wikia.com/wiki/Display_output_of_shell_commands_in_new_window
+command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+function! s:RunShellCommand(cmdline)
+  echo a:cmdline
+  let expanded_cmdline = a:cmdline
+  for part in split(a:cmdline, ' ')
+    if part[0] =~ '\v[%#<]'
+      let expanded_part = fnameescape(expand(part))
+      let expanded_cmdline = substitute(expanded_cmdline, part, expanded_part, '')
+    endif
+  endfor
+  botright new
+  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+  call setline(1, 'You entered:    ' . a:cmdline)
+  call setline(2, 'Expanded Form:  ' .expanded_cmdline)
+  call setline(3,substitute(getline(2),'.','=','g'))
+  execute '$read !'. expanded_cmdline
+  setlocal nomodifiable
+  1
+endfunction
+
+" Close all folds when opening a new buffer
+autocmd BufRead * setlocal foldmethod=marker
+autocmd BufRead * normal zM
+
+" Rainbow parenthesis always on!
+if exists(':RainbowParenthesesToggle')
+  autocmd VimEnter * RainbowParenthesesToggle
+  autocmd Syntax * RainbowParenthesesLoadRound
+  autocmd Syntax * RainbowParenthesesLoadSquare
+  autocmd Syntax * RainbowParenthesesLoadBraces
+endif
+
+" Reset spelling colours when reading a new buffer
+" This works around an issue where the colorscheme is changed by .local.vimrc
+fun! SetSpellingColors()
+  highlight SpellBad cterm=bold ctermfg=white ctermbg=red
+  highlight SpellCap cterm=bold ctermfg=red ctermbg=white
+endfun
+autocmd BufWinEnter * call SetSpellingColors()
+autocmd BufNewFile * call SetSpellingColors()
+autocmd BufRead * call SetSpellingColors()
+autocmd InsertEnter * call SetSpellingColors()
+autocmd InsertLeave * call SetSpellingColors()
+
+" Change colourscheme when diffing
+fun! SetDiffColors()
+  highlight DiffAdd    cterm=bold ctermfg=white ctermbg=DarkGreen
+  highlight DiffDelete cterm=bold ctermfg=white ctermbg=DarkGrey
+  highlight DiffChange cterm=bold ctermfg=white ctermbg=DarkBlue
+  highlight DiffText   cterm=bold ctermfg=white ctermbg=DarkRed
+endfun
+autocmd FilterWritePre * call SetDiffColors()
+
+"}}}
