@@ -107,6 +107,9 @@ set shiftwidth=2
 " Turn on line numbers
 set number
 
+" Default to absolute line numbers.
+set nu
+
 " Highlight tailing whitespace
 set list listchars=tab:\ \ ,trail:·
 
@@ -314,6 +317,9 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " " to map something in just NORMAL mode use :nmap or :nnoremap
 " " to map something in just VISUAL mode use :vmap or :vnoremap
 
+" Remap colon to semicolon.
+nnoremap ; :
+
 " Disable arrow kyes. Force use of <hjkl>. (Oh noes!)
 nnoremap <up> <nop>
 nnoremap <down> <nop>
@@ -340,6 +346,10 @@ while i <= 9
   execute 'nnoremap <Leader>' . i . ' :' . i . 'wincmd w<CR>'
   let i = i + 1
 endwhile
+
+" Toggle folds with space
+nnoremap <Space> za
+vnoremap <Space> za
 
 " Disable search highlighting (<leader><space>)
 nnoremap <leader><space> :noh<cr>
@@ -380,6 +390,19 @@ map <leader>w[ <C-W>= " equalize all windows
 
 " Make splitting Vim windows easier
 map <leader>; <C-W>s
+
+" Paste from system clipboard in insert mode (Ctrl+v)
+imap <C-V> <ESC>"+gpa
+
+" Yank WORD to system clipboard in normal mode
+nmap <leader>y "+yE
+
+" Yank selection to system clipboard in visual mode
+vmap <leader>y "+y
+
+" Spell check
+map <leader>s :setlocal spell! spelllang=en_us<cr>
+
 " }}}
 
 " Commands {{{
