@@ -314,9 +314,47 @@ let g:neocomplete#sources#omni#input_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
 " " to map something in just NORMAL mode use :nmap or :nnoremap
 " " to map something in just VISUAL mode use :vmap or :vnoremap
 
+" Disable arrow kyes. Force use of <hjkl>. (Oh noes!)
+nnoremap <up> <nop>
+nnoremap <down> <nop>
+nnoremap <left> <nop>
+nnoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+
+" Move by screen line rather than file line (for wrapping)
+nnoremap j gj
+nnoremap k gk
+
+" Move between windows with CTRL and navigation keys.
+noremap <C-h> <C-w>h
+noremap <C-j> <C-w>j
+noremap <C-k> <C-w>k
+noremap <C-l> <C-w>l
+
+" Switch between windows with <Leader><number>
+let i = 1
+while i <= 9
+  execute 'nnoremap <Leader>' . i . ' :' . i . 'wincmd w<CR>'
+  let i = i + 1
+endwhile
+
+" Disable search highlighting (<leader><space>)
+nnoremap <leader><space> :noh<cr>
+
+" Open a new tab (Ctrl-t)
+nnoremap <C-t> :tabnew
+
+" Toggle paste mode (F2)
+set pastetoggle=<F2>
 
 " Clear search buffer
 :nnoremap § :nohlsearch<cr>
+
+" Escape (kj)
+inoremap kj <Esc>
 
 " Command to use sudo when needed
 cmap w!! %!sudo tee > /dev/null %
